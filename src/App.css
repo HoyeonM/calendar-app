@@ -1,0 +1,74 @@
+.text-center{
+  margin-left: 50px;
+}
+.react-calendar {
+  min-width: 90%;
+  margin-left: 5%;
+}
+
+.react-calendar__navigation button {
+  font-size: 20px;
+  font-weight: bold;
+  margin-top: 20px;
+
+}
+.react-calendar__tile{
+  padding-top: 5px;
+}
+
+abbr[title] {
+  text-decoration: none;
+ }
+
+.react-calendar__tile--active:enabled {
+  background-color: coral;
+}
+
+.react-calendar__tile--active:enabled:focus {
+  background-color: coral;
+}
+
+.header {
+  display: flex;
+}
+
+.header-props{
+  display: flex;
+  margin-top: 30px;
+  margin-left: 30px;
+}
+
+.material-symbols-outlined {
+  padding-right: 15px;
+}
+
+.belowpart{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 80%;
+}
+
+.journal {
+  width: 10px;
+  height: 10px;
+}
+
+/* pin style */
+.headerbtn{
+  background: none;
+  border: none;
+  cursor: pointer;
+
+}
+
+
+
+
+
+
+
+
+
+
+
