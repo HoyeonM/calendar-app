@@ -1,3 +1,5 @@
+import Calendar from 'react-calendar';
+import 'react-calendar/dist/Calendar.css';
 import { useState } from 'react';
 import { Editor } from "react-draft-wysiwyg";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
@@ -6,7 +8,9 @@ import './App.js';
 import './App.css';
 
 function TodoForm() {
+    const [date, setDate] = useState(new Date());
     const [todo, setTodo] = useState("");
+    const [dueDate, setDueDate] = useState("");
     //const [todoInput, setTodoInput] = useState("");
     //const todos = [];
 
@@ -67,7 +71,13 @@ function TodoForm() {
                 editorClassName="editorClassName"
                 wrapperStyle={{ width: 500, height: 300, border: "1px solid black" }}
                 //onEditorStateChange = {this.onEditorStateChange}      
-        />
+            />
+            <span classname = 'bold'>Checklist Due Date:</span>
+            <input 
+            type = "text"
+            placeholder={date.toDateString()}
+            onChange={event => setDueDate(event.target.value)}
+            />
         <button>submit</button>
         </div> 
     )  
