@@ -25,9 +25,9 @@ function SearchBar() {
 
 
 function ChecklistApp(){
-  return(
-    <Checklist/>
-  )
+   return(
+     <Checklist/>
+   )
 }
 
 function StatusApp(){
@@ -88,8 +88,8 @@ function App() {
         {date.toDateString()}
       </p>
 
-      <div className='belowpart'>
-        <div className='checklist'> {/*todobox, placeholder shows selected date*/}
+      <div className='_journal'>
+      <div className='checklist'> {/*todobox, placeholder shows selected date*/}
           {/*<ChecklistApp/>*/}
           <input
             value={todoInput} ////onclickday will empty todo input!
@@ -102,20 +102,11 @@ function App() {
           {/* <button>Create Checklist</button>*/}
           <button>submit</button>
         </div>
-        <Journal className = 'journal'/>
+        <div className='_journal'>
+          <Journal className = 'journal'/>
+        </div>
       </div>
-
-        {/* TAG */}
-        {/* <input
-          value={todoTagInput} ////onclickday will empty todo input!
-          type="text"
-          placeholder={"Type tags, comma separated"}
-          onChange={event => 
-            setTodoTagInput(event.target.value) 
-          }
-        /> */}
-        {/* <button>Submit</button> */}
-      </div>
+    </div>
   );
 }
 
