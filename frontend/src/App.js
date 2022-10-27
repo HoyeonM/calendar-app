@@ -89,22 +89,7 @@ function App() {
       </p>
 
       <div className='_journal'>
-      <div className='checklist'> {/*todobox, placeholder shows selected date*/}
-          {/*<ChecklistApp/>*/}
-          <input
-            value={todoInput} ////onclickday will empty todo input!
-            type="text"
-            placeholder={date.toDateString()}
-            onChange={event => 
-              setTodoInput(event.target.value) 
-          }
-          />
-          {/* <button>Create Checklist</button>*/}
-          <button>submit</button>
-        </div>
-        <div className='_journal'>
           <Journal className = 'journal'/>
-        </div>
       </div>
     </div>
   );
