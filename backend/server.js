@@ -1,20 +1,19 @@
 const express = require("express");
 const app = express();
-const port = 3001; 
+const port = 3306; 
 const cors = require("cors");
 const bodyParser = require("body-parser");
 const mysql = require("mysql");
 
-// var connection = mysql.createConnection({
-//     /// 새로 추가된 부분
-//     connectionLimit:10,
-//     host: "127.0.0.1",
-//     user: "root", // mysql에 아이디를 넣는다.
-//     password: "password", // mysql의 비밀번호를 넣는다.
-//     database: "dailylife1", //위에서 만든 데이터베이스의 이름을 넣는다.
-//   });
+var connection = mysql.createConnection({ //newly added!
+    connectionLimit:10,
+    host: "sql9.freemysqlhosting.net",
+    user: "sql9531512", // mysql id
+    password: "Ehie5kJScc", // mysql password
+    database: "sql9531512", //database name
+  });
   
-// connection.connect();
+connection.connect();
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cors());
@@ -24,21 +23,20 @@ app.get('/', (req, res) => {
   res.send('Hello World!')
 });
 
-app.post("/passcode", (req, res) => { //데이터 받는 곳
-    const id = req.body.inText;
-    console.log(id);
-    // connection.query("INSERT INTO users (user_id) values(?)", [user_id],
-    //   function (err, rows, fields) {
-    //     if (err) {
-    //       console.log("DB save fail");
-    //     } else{
-	  //     console.log("DB save success!");
-    //   };
-    const sendText = {
-    text: "sending data success",
-  };
-  res.send(sendText);
-});
+// app.post("/passcode", (req, res) => { 
+//     const p_passcode = JSON.stringify(req.body.inText);
+//     const parsepasscode = JSON.parse(p_passcode);
+//     const passcode = parsepasscode.passcode;
+//     console.log(passcode); 
+
+//     connection.query("INSERT INTO users (passcode) values(?)", [passcode]);
+      
+//     const sendText = {
+//       text: 'your new password is : ' + passcode,
+//     };
+//     res.send(sendText);
+
+// });
 
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`)

@@ -4,7 +4,6 @@ import {useState} from 'react';
 import React from 'react';
 
 function Passcode(){
-   
     const [modalIsOpen, setModalIsOpen] = useState(false);
     const [passcode, setPasscode] = useState("");
     
@@ -23,16 +22,16 @@ function Passcode(){
 
     const onClickSubmit = () => {
         const textbox = {
-          inText: {passcode}
+          inText: {passcode},
         };
-        fetch("http://localhost:3001/passcode", { //text 주소에서 받을 예정
-          method: "post", //통신방법
+        fetch("http://localhost:3001/passcode", { 
+          method: "post", 
           headers: {
             "content-type": "application/json",
           },
-          body: JSON.stringify(textbox), //textbox라는 객체를 보냄
+          body: JSON.stringify(textbox), //sending textbox object
         })
-        .then((res) => res.json()) //추가된 부분
+        .then((res) => res.json())
         .then((json) => {
           console.log(json);
           setPasscode(json.text);
