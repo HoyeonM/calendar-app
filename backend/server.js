@@ -13,7 +13,6 @@ var connection = mysql.createConnection({ //newly added!
     database: "sql9531512", //database name
   });
   
-// connection.connect();
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cors());
@@ -24,19 +23,10 @@ app.get('/', (req, res) => {
 });
 
 app.post("/passcode", (req, res) => { //데이터 받는 곳
-    const id = req.body.inText;
-    console.log(id);
-    // connection.query("INSERT INTO users (user_id) values(?)", [user_id],
-    //   function (err, rows, fields) {
-    //     if (err) {
-    //       console.log("DB save fail");
-    //     } else{
-	  //     console.log("DB save success!");
-    //   };
-    const sendText = {
-    text: "sending data success",
-  };
-  res.send(sendText);
+    const json = req.body.inText;
+    const obj = JSON.parse(json);
+    console.log(obj.passcode);
+    // connection.query("INSERT INTO users (user_id) values(?)", [user_id]);
 });
 
 app.listen(port, () => {

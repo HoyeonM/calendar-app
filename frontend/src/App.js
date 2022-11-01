@@ -51,12 +51,6 @@ function Journal() {
   )
 }
 
-{/*function NotificationApp(){
-  return(
-    <Notification/> //notification.js has symbol
-  )
-}*/}
-
 function App() {
   const [date, setDate] = useState(new Date());
   const [todoInput, setTodoInput] = useState(""); 
@@ -79,7 +73,7 @@ function App() {
           </div>
           <div className='notification'>
 
-            {/*<NotificationApp />*/}{/* function above called NotificationApp is here*/}
+            <Notification />{/* function above called NotificationApp is here*/}
           </div>
           <SearchBar/> {/* function above called SearchBar is here*/}
         </div>

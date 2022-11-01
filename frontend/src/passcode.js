@@ -21,7 +21,7 @@ function Passcode(){
 
     const onClickSubmit = () => {
         const textbox = {
-          inText: {passcode},
+          inText: JSON.stringify({passcode}),
         };
         fetch("http://localhost:3306/passcode", { 
           method: "post", 
