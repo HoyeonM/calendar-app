@@ -11,7 +11,6 @@ function Passcode(){
         setModalIsOpen(false);
 
     };
-
     const openModal = () => {
         setModalIsOpen(true);
     };
@@ -24,7 +23,7 @@ function Passcode(){
         const textbox = {
           inText: {passcode},
         };
-        fetch("http://localhost:3001/passcode", { 
+        fetch("http://localhost:3306/passcode", { 
           method: "post", 
           headers: {
             "content-type": "application/json",
