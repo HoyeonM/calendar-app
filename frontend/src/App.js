@@ -6,7 +6,7 @@ import todo from './todo.js';
 import Passcode from './passcode.js';
 import Notification from './notification.js';
 import TodoForm from './todoForm.js';
-import JournalForm from './journal.js';
+import Journal from './journal.js';
 
 
 function SearchBar() { 
@@ -43,12 +43,6 @@ function StatusApp(){
 
 function TagApp(){
 
-}
-
-function Journal() {
-  return(
-    <JournalForm/>
-  )
 }
 
 function App() {

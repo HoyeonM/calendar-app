@@ -6,6 +6,7 @@ import React from 'react';
 function Passcode(){
     const [modalIsOpen, setModalIsOpen] = useState(false);
     const [passcode, setPasscode] = useState("");
+    const [alertText, setAlertText] = useState("");
     
     const closeModal = () => {
         setModalIsOpen(false);
@@ -33,7 +34,7 @@ function Passcode(){
         .then((res) => res.json())
         .then((json) => {
           console.log(json);
-          setPasscode(json.text);
+          setAlertText(json.text);
         });
     };
 
@@ -48,7 +49,7 @@ function Passcode(){
                     onChange={handlChange}
                 />
                 <button onClick={onClickSubmit}>Submit</button>
-                <h3>{passcode}</h3>
+                <h4>{alertText}</h4>
                 <button onClick={closeModal}>Close</button>
             </Modal>
         </div>

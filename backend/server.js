@@ -27,7 +27,7 @@ app.post("/passcode", (req, res) => { //데이터 받는 곳
     const obj = JSON.parse(json);
     const passcode = obj.passcode;
     console.log(passcode);
-    // connection.query("INSERT INTO users (user_id) values(?)", [user_id]);
+    // connection.query("INSERT INTO userPassword (password) values(?)", [passcode]);
 
     const sendText = {
       text: "your passcode is " + passcode
