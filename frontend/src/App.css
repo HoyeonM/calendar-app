@@ -42,18 +42,72 @@ abbr[title] {
   padding-right: 15px;
 }
 
-.belowpart{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 80%;
-}
 
 .journal {
-  width: 10px;
-  height: 10px;
+  display: flex;
+  height: 100%;
+  border: solid;
+  border-color:  coral;
 }
 
+.journal * {
+  font-family: sans-serif;
+}
+
+.journal__sidebar {
+  border-right: 2px solid #dddddd;
+  flex-shrink: 0;
+  overflow-y: auto;
+  padding: 1em;
+  width: 300px;
+  
+}
+
+.journal__add {
+  background:coral;
+  border: none;
+  border-radius: 7px;
+  color: #ffffff;
+  cursor: pointer;
+  font-size: 1.25em;
+  font-weight: bold;
+  margin-bottom: 1em;
+  padding: 0.75em 0;
+  width: 100%;
+}
+
+.journal__add:hover {
+  background:rgb(255, 80, 17);
+}
+
+.journal__preview {
+  display: flex;
+  flex-direction: column;
+  padding: 2em 3em;
+  flex-grow: 1;
+  
+}
+
+.journal__title,
+.journal__body {
+  border: none;
+  outline: none;
+  width: 100%;
+}
+
+.journal__title {
+  font-size: 3em;
+  font-weight: bold;
+  
+}
+
+.journal__body {
+  flex-grow: 1;
+  font-size: 1.2em;
+  line-height: 1.5;
+  margin-top: 2em;
+  resize: none;
+}
 /* pin style */
 .headerbtn{
   background: none;

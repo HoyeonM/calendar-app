@@ -26,15 +26,15 @@ function SearchBar() {
 
 
 function todoForm(){
-  return(
-    <TodoForm/>
+   return(
+     <TodoForm/>
   )
 }
 
 function Todo(){
   return(
     <todo/>
-  )
+   )
 }
 
 function StatusApp(){
@@ -113,18 +113,7 @@ function App() {
         <span className = 'bold'>Journal:</span>{''}
         <Journal className = 'journal'/>
       </div>
-
-        {/* TAG */}
-        {/* <input
-          value={todoTagInput} ////onclickday will empty todo input!
-          type="text"
-          placeholder={"Type tags, comma separated"}
-          onChange={event => 
-            setTodoTagInput(event.target.value) 
-          }
-        /> */}
-        {/* <button>Submit</button> */}
-      </div>
+    </div>
   );
 }
 
