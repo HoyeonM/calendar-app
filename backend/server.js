@@ -25,8 +25,15 @@ app.get('/', (req, res) => {
 app.post("/passcode", (req, res) => { //데이터 받는 곳
     const json = req.body.inText;
     const obj = JSON.parse(json);
-    console.log(obj.passcode);
+    const passcode = obj.passcode;
+    console.log(passcode);
     // connection.query("INSERT INTO users (user_id) values(?)", [user_id]);
+
+    const sendText = {
+      text: "your passcode is " + passcode
+    };
+    res.send(sendText);
+
 });
 
 app.listen(port, () => {
