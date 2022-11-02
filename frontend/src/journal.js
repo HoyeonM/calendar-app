@@ -45,7 +45,7 @@ function JournalForm() {
                </textarea>
          </div>
          <div class="journal__sidebar">
-            <button onClick={addJournal} class="journal__add" type="button">Add Note</button>
+            <button onClick={addJournal} class="journal__add" type="button">Add Journal</button>
             <div class="journal__list"></div>
             <button onClick={testNoti} class="noti" type="button">Test Notification</button>
          </div>
