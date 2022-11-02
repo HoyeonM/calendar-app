@@ -39,7 +39,10 @@ function JournalForm() {
             <textarea class="journal__body" 
                onChange={(event) =>{
                setJournalInput(event.target.value);
-               } }>Journal here...</textarea>
+               } }
+               placeholder="Journal here..."
+               >
+               </textarea>
          </div>
          <div class="journal__sidebar">
             <button onClick={addJournal} class="journal__add" type="button">Add Note</button>
