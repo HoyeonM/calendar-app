@@ -11,7 +11,7 @@ var connection = mysql.createConnection({ //newly added!
     user: "sql9531512", // mysql id
     password: "Ehie5kJScc", // mysql password
     database: "sql9531512", //database name
-  });
+    });
   
 
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -27,7 +27,11 @@ app.post("/passcode", (req, res) => { //데이터 받는 곳
     const obj = JSON.parse(json);
     const passcode = obj.passcode;
     console.log(passcode);
-    // connection.query("INSERT INTO userPassword (password) values(?)", [passcode]);
+    connection.connect(function(err) {
+      if (err) throw err;
+      console.log("Connected!");
+    });
+    connection.query("INSERT INTO userPassword (password) values(?)", [passcode]);
 
     const sendText = {
       text: "your passcode is " + passcode
