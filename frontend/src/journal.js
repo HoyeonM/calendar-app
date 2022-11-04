@@ -26,11 +26,11 @@ function JournalForm() {
 
     return (
       <div class = "journal">
-         <div class="journal__sidebar">
+         {/* <div class="journal__sidebar">
             <button onClick={addJournal} class="journal__add" type="button">Add Note</button>
             <div class="journal__list"></div>
             <button onClick={testNoti} class="noti" type="button">Test Notification</button>
-         </div>
+         </div> */}
          <div class="journal__preview">
             <input class="journal__title" type="text"  
             placeholder="New Journal Entry Title..." 
@@ -39,7 +39,15 @@ function JournalForm() {
             <textarea class="journal__body" 
                onChange={(event) =>{
                setJournalInput(event.target.value);
-               } }>Journal here...</textarea>
+               } }
+               placeholder="Journal here..."
+               >
+               </textarea>
+         </div>
+         <div class="journal__sidebar">
+            <button onClick={addJournal} class="journal__add" type="button">Add Journal</button>
+            <div class="journal__list"></div>
+            <button onClick={testNoti} class="noti" type="button">Test Notification</button>
          </div>
       </div>  
     );
