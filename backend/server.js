@@ -38,6 +38,8 @@ app.post("/passcode", (req, res) => { //데이터 받는 곳
     };
     res.send(sendText);
 
+    connection.release();
+
 });
 
 app.listen(port, () => {
