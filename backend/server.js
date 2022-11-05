@@ -48,6 +48,12 @@ app.post("/tag", (req, res) => {
   const tag = obj.tag;
   console.log(tag);
 
+  connection.connect(function(err) {
+    if (err) throw err;
+    console.log("Connected!");
+  });
+  connection.query("INSERT INTO Tags (value) values(?)", [tag]);
+
   const sendText = {
     text: "New tag created: " + tag
   };
@@ -57,4 +63,4 @@ app.post("/tag", (req, res) => {
 
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`)
-});
+})
