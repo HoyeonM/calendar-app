@@ -38,9 +38,22 @@ app.post("/passcode", (req, res) => { //데이터 받는 곳
     };
     res.send(sendText);
 
-    connection.release();
+    //connection.release();
 
 });
+
+app.post("/tag", (req, res) => {
+  const json = req.body.inText;
+  const obj = JSON.parse(json);
+  const tag = obj.tag;
+  console.log(tag);
+
+  const sendText = {
+    text: "New tag created: " + tag
+  };
+  res.send(sendText);
+
+})
 
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`)

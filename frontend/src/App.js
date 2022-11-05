@@ -7,6 +7,7 @@ import Passcode from './passcode.js';
 import Notification from './notification.js';
 import TodoForm from './todoForm.js';
 import Journal from './journal.js';
+import Tag from './Tag.js';
 
 
 function SearchBar() { 
@@ -66,10 +67,15 @@ function App() {
             <Passcode /> {/* function above called PasscodeApp is here*/}
           </div>
           <div className='notification'>
-
             <Notification />{/* function above called NotificationApp is here*/}
           </div>
-          <SearchBar/> {/* function above called SearchBar is here*/}
+          <div className='search-bar'>
+            <SearchBar/> {/* function above called SearchBar is here*/}
+          </div>
+          <div className='tag-bar'>
+            <Tag/>
+          </div>
+          
         </div>
       </div>
       <div className='calendar-container'>
