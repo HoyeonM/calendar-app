@@ -4,21 +4,14 @@ import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import Axios from 'axios';
 
 function JournalForm() {
-    const [journalInput, setJournalInput] = useState("");
-    const [journalTitle, setJournalTitle] = useState("");
+    const [note, setNote] = useState("");
+    const [title, setTitle] = useState("");
+    const [date, setDate] = useState("");
 
-
-   const testNoti = () =>{
-      Notification.requestPermission().then(function (result){
-         var myNotification = new Notification('Electron Notification',{
-            'body': "HELLO, THIS IS A TEST NOTIFICATION",
-         });
-      });
-   }
    const addJournal = () => {
-      Axios.post("http://localhost:3001/journal", {
-         journalTitle: journalTitle,
-         journalInput: journalInput,
+      Axios.post("http://localhost:3001/create", {
+         title: title,
+         note: note,
       }).then(() => {
             console.log("Added data successfully");
       });
@@ -35,10 +28,10 @@ function JournalForm() {
             <input class="journal__title" type="text"  
             placeholder="New Journal Entry Title..." 
                onChange={(event) =>{
-               setJournalTitle(event.target.value);}}></input>
+               setTitle(event.target.value);}}></input>
             <textarea class="journal__body" 
                onChange={(event) =>{
-               setJournalInput(event.target.value);
+               setNote(event.target.value);
                } }>Journal here...</textarea>
          </div>
       </div>  
