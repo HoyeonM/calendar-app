@@ -24,7 +24,7 @@ function Passcode(){
         const textbox = {
           inText: JSON.stringify({passcode}),
         };
-        fetch("http://localhost:3307/passcode", { 
+        fetch("http://localhost:3306/passcode", { 
           method: "post", 
           headers: {
             "content-type": "application/json",

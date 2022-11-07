@@ -1,6 +1,6 @@
 const express = require("express");
 const app = express();
-const port = 3307; 
+const port = 3306; 
 const cors = require("cors");
 const bodyParser = require("body-parser");
 const mysql = require("mysql");
@@ -37,8 +37,6 @@ app.post("/passcode", (req, res) => { //데이터 받는 곳
       text: "your passcode is " + passcode
     };
     res.send(sendText);
-
-    connection.release();
 
 });
 

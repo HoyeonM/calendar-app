@@ -11,14 +11,15 @@ function JournalForm() {
     const [notesArray, setNotesArray] = useState([]);
 
     async function getNotes() {
-      await Axios.get("http://localhost:3307/getNotes").then((response) => {
+      await Axios.get("http://localhost:3306/getNotes").then((response) => {
         setNotesArray(response.data);
         console.log(response.data);
+
       })
     }
   
    const addNote = () => {
-   Axios.post("http://localhost:3307/insert", {
+   Axios.post("http://localhost:3306/insert", {
       title: title, 
       note: note, 
       dateTime: dateTime,
@@ -28,7 +29,7 @@ function JournalForm() {
     })
    }
    const updateNote = () =>{
-      Axios.put("http://localhost:3307/update", { 
+      Axios.put("http://localhost:3306/update", { 
          id:id,
          title: title, 
          note: note, 
@@ -41,7 +42,7 @@ function JournalForm() {
 
       let answer = window.confirm("Are you sure want to delete?");
         if (answer) {
-          Axios.delete(`http://localhost:3307/delete/${id}`).then((response) => {
+          Axios.delete(`http://localhost:3306/delete/${id}`).then((response) => {
             setNotesArray(
                 notesArray.filter((val) => {
                     return val.id != id;
@@ -54,13 +55,7 @@ function JournalForm() {
 
     return (
       <div class = "journal">
-         { <div class="journal__sidebar">
-            <button onClick={addNote} class="journal__add" type="button">Add Note</button>
-            <button onClick={updateNote} class="journal__update" type="button">Update Note</button>
-            <button onClick={deleteNote} class="journal__delete" type="button">Delete Note</button>
-            <button onClick={getNotes} class="journal__getNote" type="button">Get Note</button>
-
-         </div> }
+    
          <div class="journal__preview">
             <input class="journal__title" type="text"  
             placeholder="New Journal Entry Title..." 
@@ -69,8 +64,17 @@ function JournalForm() {
             <textarea class="journal__body" 
                onChange={(event) =>{
                setNote(event.target.value);
-               } }>Journal here...</textarea>
+               } }
+               placeholder="Journal here..."
+               ></textarea>
          </div>
+         { <div class="journal__sidebar">
+            <button onClick={addNote} class="journal__add" type="button">Add Note</button>
+            <button onClick={updateNote} class="journal__update" type="button">Update Note</button>
+            <button onClick={deleteNote} class="journal__delete" type="button">Delete Note</button>
+            <button onClick={getNotes} class="journal__getNote" type="button">Get Note</button>
+
+         </div> }
       </div>  
     );
  }
