@@ -85,19 +85,6 @@ function App() {
       </p>
 
       <div className='belowpart'>
-        <div className='todo'> {/*todobox, placeholder shows selected date*/}
-          <Todo classname = 'todo'/>
-          <TodoForm classname = 'TodoForm'/>
-          {/*<input
-            value={todoInput} ////onclickday will empty todo input!
-            type="text"
-            placeholder={date.toDateString()}
-            onChange={event => 
-              setTodoInput(event.target.value) 
-          }
-        />
-        <button>submit</button> */}
-        </div>
         <span className = 'bold'>Journal:</span>{''}
         <Journal className = 'journal'/>
       </div>

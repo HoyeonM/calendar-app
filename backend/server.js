@@ -1,6 +1,6 @@
 const express = require("express");
 const app = express();
-const port = 3306; 
+const port = 3307; 
 const cors = require("cors");
 const bodyParser = require("body-parser");
 const mysql = require("mysql");
@@ -40,6 +40,79 @@ app.post("/passcode", (req, res) => { //데이터 받는 곳
 
     connection.release();
 
+});
+
+
+app.post("/insert", (req, res) => {
+// let datetime = new Date();
+//         let dateResult = datetime.toLocaleDateString("pt-br", {
+//             year: "numeric",
+//             month: "2-digit",
+//             day: "2-digit",
+//             hour: 'numeric',
+//             minute: 'numeric',
+//             second: 'numeric',
+//   });
+  const title = req.body.title;
+  const note = req.body.note;
+  const dateTime = req.body.dateTime;
+
+  connection.query (
+      "INSERT INTO JournalEntries (title, body, datetime) VALUES (?, ?, ?)", [title, note, dateTime], 
+      (err, result) => {
+          if (err) {
+              console.log(err);
+          }
+          else {
+              res.send("Values inserted");
+          }
+      }
+  );
+
+})
+
+app.get("/getNotes", (req, res) => {
+  connection.query("SELECT * FROM JournalEntries", (err, result) => {
+      if (err) {
+          console.log(err);
+      }
+      else {
+          res.send(result)
+      }
+  });
+});
+
+app.put("/update", (req, res) => {
+  
+  const id = 2;
+  const title = req.body.title;
+  const note = req.body.note;
+  const dateTime = req.body.dateTime;;
+
+  connection.query(
+      "UPDATE JournalEntries SET title = ?, body = ?, dateTime = ? WHERE id = ?",
+      [title, note, dateTime, 2],
+      (err, result) => {
+          if (err) {
+              console.log(err);
+          }
+          else {
+              res.send(result);
+          }
+      }
+  );
+});
+
+app.delete("/delete", (req, res) => {
+  const id = 2;
+  connection.query("DELETE FROM JournalEntries WHERE id = ?", id, (err, result) => {
+      if (err) {
+          console.log(err);
+      }
+      else {
+          res.send(result);
+      }
+  })
 });
 
 app.listen(port, () => {
