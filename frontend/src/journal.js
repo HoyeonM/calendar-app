@@ -58,6 +58,7 @@ function JournalForm() {
             <button onClick={addNote} class="journal__add" type="button">Add Note</button>
             <button onClick={updateNote} class="journal__update" type="button">Update Note</button>
             <button onClick={deleteNote} class="journal__delete" type="button">Delete Note</button>
+            <button onClick={getNotes} class="journal__getNote" type="button">Get Note</button>
 
          </div> }
          <div class="journal__preview">

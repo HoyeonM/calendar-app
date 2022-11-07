@@ -44,18 +44,15 @@ app.post("/passcode", (req, res) => { //데이터 받는 곳
 
 
 app.post("/insert", (req, res) => {
-// let datetime = new Date();
-//         let dateResult = datetime.toLocaleDateString("pt-br", {
-//             year: "numeric",
-//             month: "2-digit",
-//             day: "2-digit",
-//             hour: 'numeric',
-//             minute: 'numeric',
-//             second: 'numeric',
-//   });
+  var today = new Date();
+  var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+  var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+  var dateTimeNow = date+' '+time;
+
+
   const title = req.body.title;
   const note = req.body.note;
-  const dateTime = req.body.dateTime;
+  const dateTime = dateTimeNow;
 
   connection.query (
       "INSERT INTO JournalEntries (title, body, datetime) VALUES (?, ?, ?)", [title, note, dateTime], 
