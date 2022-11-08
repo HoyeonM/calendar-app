@@ -9,15 +9,24 @@ function JournalForm() {
     const [dateTime, setDate] = useState("");
     const [id,setID] = useState("");
     const [notesArray, setNotesArray] = useState([]);
+    const [showNotes, setShowNotes] = useState(false);
+    // var buttonText = showNotes ? "Hide Notes" : "Show Notes";
 
-    async function getNotes() {
-      await Axios.get("http://localhost:3306/getNotes").then((response) => {
+    const getNotes = () => {
+      Axios.get("http://localhost:3306/getNotes").then((response) => {
         setNotesArray(response.data);
         console.log(response.data);
-
       })
     }
-  
+
+    const showAllNotes = () => {
+      setShowNotes(true);
+    }
+
+    const hideAllNotes = () => {
+      setShowNotes(false);
+    }
+
    const addNote = () => {
    Axios.post("http://localhost:3306/insert", {
       title: title, 
@@ -28,6 +37,7 @@ function JournalForm() {
       console.log("Successful note add!");
     })
    }
+
    const updateNote = () =>{
       Axios.put("http://localhost:3306/update", { 
          id:id,
@@ -38,6 +48,7 @@ function JournalForm() {
          console.log("Edits updated successful");
      });
    }
+
    const deleteNote = (id) => {
 
       let answer = window.confirm("Are you sure want to delete?");
@@ -50,7 +61,6 @@ function JournalForm() {
             )
           });
         }
-  
     }
 
     return (
@@ -72,9 +82,26 @@ function JournalForm() {
             <button onClick={addNote} class="journal__add" type="button">Add Note</button>
             <button onClick={updateNote} class="journal__update" type="button">Update Note</button>
             <button onClick={deleteNote} class="journal__delete" type="button">Delete Note</button>
-            <button onClick={getNotes} class="journal__getNote" type="button">Get Note</button>
-
-         </div> }
+            <button onClick={() => {
+              getNotes();
+              showAllNotes();
+              }}
+              class="journal__getNote" type="button">Show All Notes
+              </button>
+              <div className='notes' >
+                {notesArray.map((notes,index) => {
+                  return (
+                    <div key={index}>
+                      <p> Title: {notes.title}</p>
+                      <p> Body: {notes.body}</p>
+                      <p> Time Added: {notes.dateTime}</p>
+                    </div>
+                );
+            })}
+            </div>
+            <button className='hide-notes'>Hide Notes</button>
+         </div> 
+         }
       </div>  
     );
  }

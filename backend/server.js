@@ -38,6 +38,7 @@ app.post("/passcode", (req, res) => { //데이터 받는 곳
     };
     res.send(sendText);
 
+
 });
 
 
@@ -46,7 +47,6 @@ app.post("/insert", (req, res) => {
   var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
   var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
   var dateTimeNow = date+' '+time;
-
 
   const title = req.body.title;
   const note = req.body.note;
