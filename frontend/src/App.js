@@ -83,6 +83,13 @@ function App() {
         <span className='bold'>Selected Date:</span>{' '}
         {date.toDateString()}
       </p>
+      
+      <div className= '_todo'>
+        <span className = 'bold'>Checklist:</span>{''}
+        <TodoForm classname = 'todo'/>
+        <span for = "dueDate">Checklist Due Date: </span>
+        {date.toDateString()}
+      </div>
 
       <div className='belowpart'>
         <span className = 'bold'>Journal:</span>{''}
