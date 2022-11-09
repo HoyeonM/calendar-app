@@ -2,7 +2,6 @@ import { useState } from 'react';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import './App.css';
-//import todo from './todo.js';
 import Passcode from './passcode.js';
 import Notification from './notification.js';
 import TodoForm from './todoForm.js';
@@ -29,12 +28,6 @@ function todoForm(){
    return(
      <TodoForm/>
   )
-}
-
-function Todo(){
-  return(
-    <todo/>
-   )
 }
 
 function StatusApp(){
