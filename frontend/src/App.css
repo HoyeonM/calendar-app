@@ -108,21 +108,76 @@ abbr[title] {
   margin-top: 2em;
   resize: none;
 }
+
+.todo {
+  display: flex;
+  justify-content: left;
+  padding: 1em;
+  align-items: left;
+  height: 200px;
+  border: solid;
+  border-color:  coral;
+}
+
+.todo * {
+  font-family: sans-serif;
+}
+
+.todo__sidebar {
+  border-right: 2px solid #dddddd;
+  flex-shrink: 0;
+  overflow-y: auto;
+  padding: 1em;
+  width: 300px;  
+}
+
+.todo__save {
+  background:coral;
+  border: none;
+  border-radius: 7px;
+  color: #ffffff;
+  cursor: pointer;
+  font-size: 1.25em;
+  font-weight: bold;
+  margin-bottom: 1em;
+  padding: 0.75em 0;
+  width: 100%;
+}
+
+.todo__add:hover {
+  background:rgb(255, 80, 17);
+}
+
+.todo__preview {
+  display: flex;
+  flex-direction: column;
+  padding: 2em 3em;
+  flex-grow: 1;
+}
+
+.todo__title,
+.todo__body {
+  border: none;
+  outline: none;
+  width: 100%;
+}
+
+.todo__title {
+  font-size: 3em;
+  font-weight: bold;  
+}
+
+.todo__body {
+  flex-grow: 1;
+  font-size: 1.2em;
+  line-height: 1.5;
+  margin-top: 2em;
+  resize: none;
+}
+
 /* pin style */
 .headerbtn{
   background: none;
   border: none;
   cursor: pointer;
-
 }
-
-
-
-
-
-
-
-
-
-
-
