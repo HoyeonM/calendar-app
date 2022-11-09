@@ -110,6 +110,52 @@ app.delete("/delete", (req, res) => {
   })
 });
 
+app.post("/insertChecklist", (req, res) => {
+  var today = new Date();
+  var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+  var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+  var dateTimeNow = date+' '+time;
+
+  const title = req.body.title;
+  const entry = req.body.entry;
+  const dueDate = dateTimeNow;
+
+  connection.connect(function(err) {
+    if (err) throw err;
+    console.log("Connected!");
+  });
+  
+  connection.query (
+      "INSERT INTO checklist (title, entry, dueDate) VALUES (?, ?, ?)", [title, entry, dueDate], 
+      (err, result) => {
+          if (err) {
+              console.log(err);
+          }
+          else {
+              res.send("Checklist values inserted");
+          }
+      }
+  );
+
+})
+
+app.delete("/deleteChecklist", (req, res) => {
+  const id = 2;
+  connection.connect(function(err) {
+    if (err) throw err;
+    console.log("Connected!");
+  });
+  connection.query("DELETE FROM checklist WHERE id = ?", id, (err, result) => {
+      if (err) {
+          console.log(err);
+      }
+      else {
+          res.send(result);
+      }
+  })
+});
+
+
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`)
 });
