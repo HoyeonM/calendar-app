@@ -99,7 +99,7 @@ function JournalForm() {
                 );
             })}
             </div>
-            <button className='hide-notes'>Hide Notes</button>
+            {/* <button className='hide-notes'>Hide Notes</button> */}
          </div> 
          }
       </div>  
