@@ -106,18 +106,13 @@ function JournalForm() {
          </div>
          { <div class="journal__sidebar">
             <button onClick={addNote} class="journal__add" type="button">Add Note</button>
-<<<<<<< HEAD
             <button onClick={updateNote} class="journal__update" type="button">Update Note</button>
-=======
-            <button onClick = {updateNote} class="journal__update" type="button">Update Note</button>
->>>>>>> 535ac8b93cd9d20a2b18562cc6193e8d3a572087
             <button onClick={() => {
               getNotes();
               showAllNotes();
               }}
               class="journal__getNote" type="button">Show All Notes
               </button>
-<<<<<<< HEAD
               <div className='notes'>
                 {notesArray.map((notes,index) => {
                   return (
@@ -129,16 +124,6 @@ function JournalForm() {
                       <button className="headerbtn" onClick={deleteNote}>
                         <span class="material-symbols-outlined">delete</span> 
                       </button>
-=======
-              <div  className='notes' >
-                {notesArray.map((notes,index) => {
-                  return (
-                    <div key={index} id = {index} >
-                      <button onClick={deleteNote} class="journal__delete" type="button">Delete Note</button>
-                      <p> Title: {notes.title}</p>
-                      <p> Body: {notes.body}</p>
-                      <p> Time Added: {notes.dateTime}</p>
->>>>>>> 535ac8b93cd9d20a2b18562cc6193e8d3a572087
                     </div>
                 );
                 
