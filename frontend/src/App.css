@@ -203,3 +203,9 @@ abbr[title] {
   font-size: 2em;
 
 }
+
+.notes_content {
+  font-family: 'Nunito Sans', sans-serif;
+  font-weight: bold;
+  
+}

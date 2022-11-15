@@ -42,8 +42,6 @@ function App() {
   const [date, setDate] = useState(new Date());
   const [todoInput, setTodoInput] = useState(""); 
   const [journalInput, setJournalInput] = useState("");
-  //const [todoTagInput, setTodoTagInput] = useState("");
-  //const [journalTagInput, setJournalTagInput] = useState("");
 
   const reset = () => {
     setTodoInput("");
@@ -59,9 +57,9 @@ function App() {
             <Passcode /> {/* function above called PasscodeApp is here*/}
           </div>
           <div className='notification'>
-
             <Notification />{/* function above called NotificationApp is here*/}
           </div>
+          
           <SearchBar/> {/* function above called SearchBar is here*/}
         </div>
       </div>
@@ -82,9 +80,9 @@ function App() {
         <TodoForm classname = 'todo'/>
       </div>
 
-      <div className='belowpart'>
+      <div className='_journal'>
         <span className = 'bold'>Journal</span>{''}
-        <Journal className = 'journal'/>
+        <Journal />
       </div>
     </div>
   );
