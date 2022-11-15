@@ -15,7 +15,7 @@ function TodoForm() {
    const [checklistArray, setChecklistArray] = useState([]);
    
     const addChecklist = () => {
-      Axios.post("http://localhost:3306/insertChecklist", {
+      Axios.post("http://localhost:3307/insertChecklist", {
          id: id,
          title: title, 
          entry: entry, 
@@ -27,7 +27,7 @@ function TodoForm() {
       }
    
       const updateChecklist = () =>{
-         Axios.put("http://localhost:3306/updateChecklist", { 
+         Axios.put("http://localhost:3307/updateChecklist", { 
             id:id,
             title: title, 
             entry: entry, 
@@ -40,7 +40,7 @@ function TodoForm() {
       const deleteChecklist = (id) => {
          let answer = window.confirm("Are you sure want to delete?");
            if (answer) {
-             Axios.delete(`http://localhost:3306/deleteChecklist/${id}`).then((response) => {
+             Axios.delete(`http://localhost:3307/deleteChecklist/${id}`).then((response) => {
                setChecklistArray(
                    checklistArray.filter((val) => {
                        return val.id !== id;
