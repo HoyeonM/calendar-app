@@ -1,4 +1,5 @@
 import 'react-calendar/dist/Calendar.css';
+import Calendar from 'react-calendar';
 //import Calendar from 'react-calendar';
 import { useState } from 'react';
 import "./App.css";
@@ -9,7 +10,7 @@ function TodoForm() {
    const [id,setID] = useState("");
    const [title, setTitle] = useState("");
    const [entry, setEntry] = useState("");
-   const [dueDate, setDueDate] = useState("");
+   const [dueDate, setDueDate] = useState(new Date());
    //sconst [checklist, setChecklist] = useState("");
    const [checklistArray, setChecklistArray] = useState([]);
    
@@ -51,28 +52,15 @@ function TodoForm() {
    
     return (
       <div class = "todo">
-        <div class = "todo_sidebar">
-          <button class = "todo_save"
-            onClick = {addChecklist} 
-            type = "button">Save Checklist</button>
-          {/*
-          <button class="checklist__update"
-            onClick={updateChecklist}  
-            type="button">Update Checklist</button>
-          */}
-          <button class = "todo_delete"
-            onClick = {deleteChecklist}
-            type = "button">Delete Checklist</button>
-        </div>
         <div class = "todo_preview">
-          <label for = "todo">Checklist Title:</label>
-            <input class = "todo_title"
+          <label for = "todo"> </label>
+            <input className = "todo_title"
               type = "text"
-              placeholder = {title}
+              placeholder = 'Enter Title'
               onChange={(event) =>{
                 setTitle(event.target.value);}}>
             </input>
-            <textarea class = "todo_body"
+            <textarea className = "todo_body"
               rows = {10}
               cols = {175}
               onChange = {(event) => {
@@ -80,6 +68,22 @@ function TodoForm() {
                 }}
               placeholder = "Enter Checklist Entry Here">
             </textarea>
+            <span for = "dueDate" className='todoDuedate'>Checklist Due Date: " {dueDate.toDateString()} "
+            </span>
+       
+        </div>
+        <div class = "todo_sidebar">
+          <button class = "todo_save"
+            onClick = {addChecklist} 
+            type = "button">Save</button>
+          {/*
+          <button class="checklist__update"
+            onClick={updateChecklist}  
+            type="button">Update Checklist</button>
+          */}
+          <button class = "todo_delete"
+            onClick = {deleteChecklist}
+            type = "button">Delete</button>
         </div>
       </div>  
     );  
