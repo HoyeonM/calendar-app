@@ -1,6 +1,6 @@
 const express = require("express");
 const app = express();
-const port = 3307; 
+const port = 3306; 
 const cors = require("cors");
 const bodyParser = require("body-parser");
 const mysql = require("mysql");
@@ -11,18 +11,15 @@ var connection = mysql.createConnection({ //newly added!
     user: "sql9531512", // mysql id
     password: "Ehie5kJScc", // mysql password
     database: "sql9531512", //database name
-    });
+});
+  
   
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cors());
 app.use(bodyParser.json());
 
-app.get('/', (req, res) => {
-  res.send('Hello World!')
-});
-
-app.post("/passcode", (req, res) => { //데이터 받는 곳
+app.post("/passcode", (req, res) => { 
     const json = req.body.inText;
     const obj = JSON.parse(json);
     const passcode = obj.passcode;
@@ -37,8 +34,6 @@ app.post("/passcode", (req, res) => { //데이터 받는 곳
       text: "your passcode is " + passcode
     };
     res.send(sendText);
-
-
 });
 
 
@@ -59,12 +54,13 @@ app.post("/insert", (req, res) => {
               console.log(err);
           }
           else {
-              res.send("Values inserted");
+              res.send(result);
           }
       }
   );
 
 })
+
 
 app.get("/getNotes", (req, res) => {
   connection.query("SELECT * FROM JournalEntries", (err, result) => {
@@ -78,8 +74,7 @@ app.get("/getNotes", (req, res) => {
 });
 
 app.put("/update", (req, res) => {
-  
-  const id = 2;
+  //const id = 2;
   const title = req.body.title;
   const note = req.body.note;
   const dateTime = req.body.dateTime;;
@@ -99,13 +94,14 @@ app.put("/update", (req, res) => {
 });
 
 app.delete("/delete", (req, res) => {
-  const id = 2;
-  connection.query("DELETE FROM JournalEntries WHERE id = ?", id, (err, result) => {
+  let title = req.body.title;
+  connection.query("DELETE FROM JournalEntries WHERE title= ?", title, (err, result) => {
       if (err) {
           console.log(err);
       }
       else {
-          res.send(result);
+        console.log(title);
+        res.send(result);
       }
   })
 });

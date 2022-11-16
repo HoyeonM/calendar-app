@@ -116,6 +116,9 @@ abbr[title] {
   resize: none;
 }
 
+._todo{
+  margin-top: 50px;
+}
 .todo {
   margin-left: 50px;
   margin-right: 50px;
@@ -179,6 +182,7 @@ abbr[title] {
   font-weight: bold;  
   width:70%;
   margin-bottom: 10px;
+  margin-top: 10px;
   font-family: 'Nunito Sans', sans-serif;
   font-weight: bold;
 }
@@ -190,7 +194,7 @@ abbr[title] {
   color: blue;
 }
 
-/* pin style */
+/* pin / notification style */
 .headerbtn{
   background: none;
   border: none;
@@ -208,4 +212,14 @@ abbr[title] {
   font-family: 'Nunito Sans', sans-serif;
   font-weight: bold;
   
+}
+
+.deletebtn{
+  background: none;
+  border-color: red;
+  cursor: pointer;
+}
+
+.deletebtn:hover{
+  background-color: lightgray;
 }

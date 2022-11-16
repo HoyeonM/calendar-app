@@ -40,13 +40,6 @@ function TagApp(){
 
 function App() {
   const [date, setDate] = useState(new Date());
-  const [todoInput, setTodoInput] = useState(""); 
-  const [journalInput, setJournalInput] = useState("");
-
-  const reset = () => {
-    setTodoInput("");
-    setJournalInput("");
-  } //empty todo and journal input
 
   return ( //this makes whole UI like html
     <div className='app'>
@@ -59,7 +52,6 @@ function App() {
           <div className='notification'>
             <Notification />{/* function above called NotificationApp is here*/}
           </div>
-          
           <SearchBar/> {/* function above called SearchBar is here*/}
         </div>
       </div>
@@ -67,7 +59,6 @@ function App() {
         <Calendar 
           onChange={setDate} 
           value={date} 
-          onClickDay={reset} //everytime I click different date, input will be reset
         />
       </div>
       <p className='text-center'>

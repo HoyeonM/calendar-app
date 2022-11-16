@@ -4,9 +4,11 @@ import Axios from 'axios';
 import './App.css';
 import React from 'react';
 
-function JournalForm() {
+//선택된 인덱스의 아이디 불러오기..
+
+function Journal() {
     let currentId = 0;
-    const [note, setNote] = useState('');
+    const [note, setNote] = useState("");
     const [title, setTitle] = useState("");
     const [dateTime, setDate] = useState("");
     const [id,setID] = useState(0);
@@ -15,34 +17,41 @@ function JournalForm() {
     // var buttonText = showNotes ? "Hide Notes" : "Show Notes";
 
     const getNotes = () => {
-      Axios.get("http://localhost:3307/getNotes").then((response) => {
-        setNotesArray(response.data);
-        console.log(response.data);
+      Axios.get("http://localhost:3306/getNotes").then((res) => {
+        setNotesArray(res.data);
+        console.log(res.data);
       })
     }
 
-    const showAllNotes = () => {
-      setShowNotes(true);
+    const manageshowAllNotes = () => {
+      setShowNotes(!showNotes);
     }
 
-    // const hideAllNotes = () => {
-    //   setShowNotes(false);
-    // }
+    const hideAllNotes = () => {
+      setShowNotes(false);
+    }
+
+   const emptyInput = () =>{
+    setTitle("");
+    setNote("");
+   }
     
    const addNote = () => {
-   Axios.post("http://localhost:3307/insert", {
-      title: title, 
-      note: note, 
-      dateTime: dateTime,
-    })
-    .then(() => {
-      console.log("Successful note add!");
-    })
+      Axios.post("http://localhost:3306/insert", {
+        title: title, 
+        note: note, 
+        dateTime: dateTime,
+      })
+     .then(res => {
+        console.log("Successful note add!");
+        window.alert("your note is successfully added!");
+        //console.log(res.data);
+      
+      })
    }
 
    const updateNote = () =>{
-    Axios.put("http://localhost:3307/update", { 
-       id:id,
+    Axios.put("http://localhost:3306/update", { 
        title: title, 
        note: note, 
        dateTime: dateTime,
@@ -51,14 +60,19 @@ function JournalForm() {
    });
  }
 
-   const deleteNote = (id) => {
-      console.log(id);
+   const deleteNote = (title) => {
+      console.log(title);
       let answer = window.confirm("Are you sure want to delete?");
         if (answer) {
-          Axios.delete(`http://localhost:3307/delete/${id}`).then((response) => {
+          Axios.delete("http://localhost:3306/delete", {
+            title:title
+          })
+          .then(res => {
+            console.log(res);
+            console.log(res.data);
             setNotesArray(
-                notesArray.filter((val) => {
-                    return val.id != id;
+                notesArray.filter((item) => {
+                    return item.title != title;
                 })
             )
           });
@@ -72,24 +86,12 @@ function JournalForm() {
       //  }
     }
 
-    // const handleClick = event => {
-    //   // refers to the div element
-    //   //console.log(event.target.id);
-    //   //console.log('div clicked');
+    const handleClick = event => {
+      console.log(event.target.id);
+      console.log('div clicked');
   
-    // };
-    
-    document.addEventListener('click', (e) =>
-    {
-      // Retrieve id from clicked element
-      let elementId = e.target.id;
-      // If element has id
-      if (elementId !== '') {
-          setCurrentView(elementId);
-      }
-    }
-    
-  );
+    };
+
     return (
       <div class = "journal">
          <div class="journal__preview">
@@ -105,14 +107,27 @@ function JournalForm() {
                ></textarea>
          </div>
          { <div class="journal__sidebar">
-            <button onClick={addNote} class="journal__add" type="button">Add Note</button>
-            <button onClick={updateNote} class="journal__update" type="button">Update Note</button>
             <button onClick={() => {
-              getNotes();
-              showAllNotes();
+              addNote();
+              emptyInput();
+            }}
+            class="journal__add" type="button">Add Note</button>
+            <button onClick={updateNote} class="journal__update" type="button">Update Note</button>
+
+
+            <button onClick={() => {
+              manageshowAllNotes();
+              
               }}
-              class="journal__getNote" type="button">Show All Notes
+              class="journal__getNote" type="button"> Show All Notes
               </button>
+              {showNotes ? getNotes() : null}
+
+              <button onClick={()=> {
+                manageshowAllNotes();
+              }}
+              >Hide All Notes</button>
+
               <div className='notes'>
                 {notesArray.map((notes,index) => {
                   return (
@@ -121,20 +136,19 @@ function JournalForm() {
                       <p className='notes_content'> Body: {notes.body}</p>
                       <p className='notes_content'> Time Added: {notes.dateTime}</p>
                       
-                      <button className="headerbtn" onClick={deleteNote}>
-                        <span class="material-symbols-outlined">delete</span> 
-                      </button>
+                      <button className="deletebtn" onClick={e=> {
+                        handleClick(e, index);
+                        deleteNote(notes.title);
+                      }}>Delete</button>
                     </div>
-                );
-                
+                ); 
             })}
       
             </div>
-            {/* <button className='hide-notes'>Hide Notes</button> */}
          </div> 
          }
       </div>  
     );
  }
 
- export default JournalForm;
+ export default Journal;
