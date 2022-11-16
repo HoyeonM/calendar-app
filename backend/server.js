@@ -95,7 +95,7 @@ app.put("/update", (req, res) => {
 
 app.delete("/delete", (req, res) => {
   let title = req.body.title;
-  connection.query("DELETE FROM JournalEntries WHERE title= ?", title, (err, result) => {
+  connection.query("DELETE FROM JournalEntries WHERE title= ?", [title], (err, result) => {
       if (err) {
           console.log(err);
       }

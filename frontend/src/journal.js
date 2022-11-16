@@ -117,14 +117,14 @@ function Journal() {
 
             <button onClick={() => {
               manageshowAllNotes();
-              
+              getNotes();
               }}
               class="journal__getNote" type="button"> Show All Notes
               </button>
-              {showNotes ? getNotes() : null}
+              {/* {showNotes ? getNotes() : null} */}
 
               <button onClick={()=> {
-                manageshowAllNotes();
+                // manageshowAllNotes();
               }}
               >Hide All Notes</button>
 
@@ -141,10 +141,12 @@ function Journal() {
                         deleteNote(notes.title);
                       }}>Delete</button>
                     </div>
+
                 ); 
             })}
-      
+            {/* {showNotes ? getNotes() : null} */}
             </div>
+            {/* {showNotes ? getNotes() : null} */}
          </div> 
          }
       </div>  
