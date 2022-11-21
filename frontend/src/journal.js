@@ -16,7 +16,7 @@ function Journal() {
     const [dateTime, setDate] = useState("");
     const [id,setID] = useState(0);
     const [notesArray, setNotesArray] = useState([]);
-    const [showNotes, setShowNotes] = useState(false);
+
 
     // var buttonText = showNotes ? "Hide Notes" : "Show Notes";
 
@@ -26,21 +26,17 @@ function Journal() {
         console.log(res.data);
       })
     }
-
     const closeModal = () => {
       setModalIsOpen(false);
 
-  };
-  const openModal = () => {
+    };
+    const openModal = () => {
       setModalIsOpen(true);
-  };
-
-    const manageshowAllNotes = () => {
-      setShowNotes(!showNotes);
-    }
+    };
 
     const hideAllNotes = () => {
-      setShowNotes(false);
+      setNotesArray(null);
+
     }
 
    const emptyInput = () =>{
@@ -91,36 +87,36 @@ function Journal() {
         }
     }
 
-    const onClickSubmit = () => {
-      const textbox = {
-        inText: JSON.stringify({passcode}),
-      };
-      fetch("http://localhost:3306/passcode", { 
-        method: "post", 
-        headers: {
-          "content-type": "application/json",
-        },
-        body: JSON.stringify(textbox), //sending textbox object
-      })
-      .then((res) => res.json())
-      .then((json) => {
-        console.log(json);
-        setAlertText(json.text);
-      });
-  };
+  //   const onClickSubmit = () => {
+  //     const textbox = {
+  //       inText: JSON.stringify({passcode}),
+  //     };
+  //     fetch("http://localhost:3306/passcode", { 
+  //       method: "post", 
+  //       headers: {
+  //         "content-type": "application/json",
+  //       },
+  //       body: JSON.stringify(textbox), //sending textbox object
+  //     })
+  //     .then((res) => res.json())
+  //     .then((json) => {
+  //       console.log(json);
+  //       setAlertText(json.text);
+  //     });
+  // };
 
 
-    const hideNotes = (title) => {
-      console.log(title);
-      <Modal isOpen={modalIsOpen} onRequestClose={closeModal}>
-      	        <h3>Type Your Passcode</h3>
-                <input
-                    onChange={handlChange}
-                />
-                <button onClick={onClickSubmit}>Submit</button>
-                <button onClick={closeModal}>Close</button>
-            </Modal>
-    }
+  //   const hideNotes = (title) => {
+  //     console.log(title);
+  //     <Modal isOpen={modalIsOpen} onRequestClose={closeModal}>
+  //     	        <h3>Type Your Passcode</h3>
+  //               <input
+  //                   onChange={handlChange}
+  //               />
+  //               <button onClick={onClickSubmit}>Submit</button>
+  //               <button onClick={closeModal}>Close</button>
+  //           </Modal>
+  //   }
     const setCurrentView = (id) =>{
       setTitle(notesArray[id].title);
       setNote(notesArray[id].body);
@@ -159,20 +155,20 @@ function Journal() {
 
 
             <button onClick={() => {
-              manageshowAllNotes();
               getNotes();
               }}
               class="journal__getNote" type="button"> Show All Notes
               </button>
-              {/* {showNotes ? getNotes() : null} */}
 
               <button onClick={()=> {
-                // manageshowAllNotes();
+                hideAllNotes();
+
               }}
               >Hide All Notes</button>
 
               <div className='notes'>
-                {notesArray.map((notes,index) => {
+                {Array.isArray(notesArray) ?
+                notesArray.map((notes,index) => {
                   return (
                     <div key={index}>
                       <p className='notes_content'> Title: {notes.title}</p>
@@ -186,16 +182,14 @@ function Journal() {
 
                       <button onClick={e=>{
                         handleClick(e,index);
-                        hideNotes(notes.title);
+                        // hideNotes(notes.title);
                       }}
                       className='notes_btn'>Hide</button>
                     </div>
-
-                ); 
-            })}
-            {/* {showNotes ? getNotes() : null} */}
+                )})
+              : null}
             </div>
-            {/* {showNotes ? getNotes() : null} */}
+
          </div> 
          }
       </div>  
