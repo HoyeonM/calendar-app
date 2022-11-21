@@ -3,17 +3,21 @@ import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import Axios from 'axios';
 import './App.css';
 import React from 'react';
+import Modal from 'react-modal'; //this is for popup
+
 
 //선택된 인덱스의 아이디 불러오기..
 
 function Journal() {
     let currentId = 0;
+    const [modalIsOpen, setModalIsOpen] = useState(false);
     const [note, setNote] = useState("");
     const [title, setTitle] = useState("");
     const [dateTime, setDate] = useState("");
     const [id,setID] = useState(0);
     const [notesArray, setNotesArray] = useState([]);
     const [showNotes, setShowNotes] = useState(false);
+
     // var buttonText = showNotes ? "Hide Notes" : "Show Notes";
 
     const getNotes = () => {
@@ -22,6 +26,14 @@ function Journal() {
         console.log(res.data);
       })
     }
+
+    const closeModal = () => {
+      setModalIsOpen(false);
+
+  };
+  const openModal = () => {
+      setModalIsOpen(true);
+  };
 
     const manageshowAllNotes = () => {
       setShowNotes(!showNotes);
@@ -77,6 +89,37 @@ function Journal() {
             )
           });
         }
+    }
+
+    const onClickSubmit = () => {
+      const textbox = {
+        inText: JSON.stringify({passcode}),
+      };
+      fetch("http://localhost:3306/passcode", { 
+        method: "post", 
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify(textbox), //sending textbox object
+      })
+      .then((res) => res.json())
+      .then((json) => {
+        console.log(json);
+        setAlertText(json.text);
+      });
+  };
+
+
+    const hideNotes = (title) => {
+      console.log(title);
+      <Modal isOpen={modalIsOpen} onRequestClose={closeModal}>
+      	        <h3>Type Your Passcode</h3>
+                <input
+                    onChange={handlChange}
+                />
+                <button onClick={onClickSubmit}>Submit</button>
+                <button onClick={closeModal}>Close</button>
+            </Modal>
     }
     const setCurrentView = (id) =>{
       setTitle(notesArray[id].title);
@@ -136,10 +179,16 @@ function Journal() {
                       <p className='notes_content'> Body: {notes.body}</p>
                       <p className='notes_content'> Time Added: {notes.dateTime}</p>
                       
-                      <button className="deletebtn" onClick={e=> {
+                      <button className="notes_btn" onClick={e=> {
                         handleClick(e, index);
                         deleteNote(notes.title);
                       }}>Delete</button>
+
+                      <button onClick={e=>{
+                        handleClick(e,index);
+                        hideNotes(notes.title);
+                      }}
+                      className='notes_btn'>Hide</button>
                     </div>
 
                 ); 

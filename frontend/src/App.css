@@ -214,7 +214,8 @@ abbr[title] {
   
 }
 
-.deletebtn{
+.notes_btn{
+  margin-right: 5px;
   background: none;
   border-color: red;
   cursor: pointer;

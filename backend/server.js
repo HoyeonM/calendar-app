@@ -5,14 +5,14 @@ const cors = require("cors");
 const bodyParser = require("body-parser");
 const mysql = require("mysql");
 
+
 var connection = mysql.createConnection({ //newly added!
     connectionLimit:10,
     host: "sql9.freemysqlhosting.net",
-    user: "sql9531512", // mysql id
-    password: "Ehie5kJScc", // mysql password
-    database: "sql9531512", //database name
+    user: "sql9579587", // mysql id
+    password: "blq8zUBtEj", // mysql password
+    database: "sql9579587", //database name
 });
-  
   
 
 app.use(bodyParser.urlencoded({ extended: false }));
