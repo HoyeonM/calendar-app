@@ -7,6 +7,8 @@ function Passcode(){
     const [modalIsOpen, setModalIsOpen] = useState(false);
     const [passcode, setPasscode] = useState("");
     const [alertText, setAlertText] = useState("");
+
+    Modal.setAppElement('#root');
     
     const closeModal = () => {
         setModalIsOpen(false);
@@ -43,7 +45,7 @@ function Passcode(){
             <button class='headerbtn' onClick={openModal}>
                 <span class="material-symbols-outlined">pin</span> 
             </button>
-            <Modal isOpen={modalIsOpen} onRequestClose={closeModal}>
+            <Modal className='Modal' isOpen={modalIsOpen} onRequestClose={closeModal}>
       	        <h3>Your new Passcode</h3>
                 <input
                     onChange={handlChange}

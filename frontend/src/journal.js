@@ -6,7 +6,6 @@ import React from 'react';
 import Modal from 'react-modal'; //this is for popup
 
 
-//선택된 인덱스의 아이디 불러오기..
 
 function Journal() {
     let currentId = 0;
@@ -17,8 +16,8 @@ function Journal() {
     const [id,setID] = useState(0);
     const [notesArray, setNotesArray] = useState([]);
 
+    Modal.setAppElement('#root');
 
-    // var buttonText = showNotes ? "Hide Notes" : "Show Notes";
 
     const getNotes = () => {
       Axios.get("http://localhost:3306/getNotes").then((res) => {
@@ -73,7 +72,7 @@ function Journal() {
       let answer = window.confirm("Are you sure want to delete?");
         if (answer) {
           Axios.delete("http://localhost:3306/delete", {
-            title:title
+            title: JSON.stringify(title)
           })
           .then(res => {
             console.log(res);
@@ -105,18 +104,6 @@ function Journal() {
   //     });
   // };
 
-
-  //   const hideNotes = (title) => {
-  //     console.log(title);
-  //     <Modal isOpen={modalIsOpen} onRequestClose={closeModal}>
-  //     	        <h3>Type Your Passcode</h3>
-  //               <input
-  //                   onChange={handlChange}
-  //               />
-  //               <button onClick={onClickSubmit}>Submit</button>
-  //               <button onClick={closeModal}>Close</button>
-  //           </Modal>
-  //   }
     const setCurrentView = (id) =>{
       setTitle(notesArray[id].title);
       setNote(notesArray[id].body);
@@ -160,10 +147,7 @@ function Journal() {
               class="journal__getNote" type="button"> Show All Notes
               </button>
 
-              <button onClick={()=> {
-                hideAllNotes();
-
-              }}
+              <button onClick={hideAllNotes}
               >Hide All Notes</button>
 
               <div className='notes'>
@@ -180,15 +164,17 @@ function Journal() {
                         deleteNote(notes.title);
                       }}>Delete</button>
 
-                      <button onClick={e=>{
-                        handleClick(e,index);
-                        // hideNotes(notes.title);
-                      }}
-                      className='notes_btn'>Hide</button>
+                      <button onClick={openModal} className='notes_btn'>Hide</button>
+                      <Modal className='Modal' isOpen={modalIsOpen} onRequestClose={closeModal}>
+      	                <h3>Type Your Passcode</h3>
+                        <input/>
+                        <button> Submit</button>
+                        <button onClick={closeModal}> Close</button>
+                    </Modal>
                     </div>
                 )})
               : null}
-            </div>
+            </div>s
 
          </div> 
          }

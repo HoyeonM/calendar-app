@@ -224,3 +224,14 @@ abbr[title] {
 .deletebtn:hover{
   background-color: lightgray;
 }
+
+.Modal {
+    position: absolute;
+    top: 50px;
+    left: 100px;
+    right: 150px;
+    bottom: 300px;
+    padding-left: 150px;
+    padding-top:50px;
+    background-color: papayawhip;
+}
