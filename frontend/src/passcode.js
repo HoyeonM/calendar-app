@@ -40,8 +40,8 @@ function Passcode(){
 
     return (
         <div>
-            <button class='headerbtn' onClick={openModal}>
-                <span class="material-symbols-outlined">pin</span> 
+            <button className='headerbtn' onClick={openModal}>
+                <span className="material-symbols-outlined">pin</span> 
             </button>
             <Modal isOpen={modalIsOpen} onRequestClose={closeModal}>
       	        <h3>Your new Passcode</h3>

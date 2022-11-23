@@ -3,8 +3,6 @@ import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import './App.css';
 import Passcode from './passcode.js';
-import Notification from './notification.js';
-import TodoForm from './todoForm.js';
 import Journal from './journal.js';
 
 
@@ -24,23 +22,9 @@ function SearchBar() {
 }
 
 
-function todoForm(){
-   return(
-     <TodoForm/>
-  )
-}
-
-function StatusApp(){
-
-}
-
-function TagApp(){
-
-}
 
 function App() {
   const [date, setDate] = useState(new Date());
-
   return ( //this makes whole UI like html
     <div className='app'>
       <div className='header'>
@@ -48,9 +32,6 @@ function App() {
         <div className='header-props'>
           <div className='passcode'>
             <Passcode /> {/* function above called PasscodeApp is here*/}
-          </div>
-          <div className='notification'>
-            <Notification />{/* function above called NotificationApp is here*/}
           </div>
           <SearchBar/> {/* function above called SearchBar is here*/}
         </div>
@@ -60,17 +41,7 @@ function App() {
           onChange={setDate} 
           value={date} 
         />
-      </div>
-      <p className='text-center'>
-        {/* <span className='bold'>Selected Date:</span>{' '} */}
-        {/* {date.toDateString()} */}
-      </p>
-      
-      <div className= '_todo'>
-        <span className = 'bold'>Checklist</span>{''}
-        <TodoForm classname = 'todo'/>
-      </div>
-
+      </div>      
       <div className='_journal'>
         <span className = 'bold'>Journal</span>{''}
         <Journal />

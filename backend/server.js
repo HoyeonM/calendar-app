@@ -1,6 +1,6 @@
 const express = require("express");
 const app = express();
-const port = 3306; 
+const port = 3307; 
 const cors = require("cors");
 const bodyParser = require("body-parser");
 const mysql = require("mysql");
@@ -8,9 +8,9 @@ const mysql = require("mysql");
 var connection = mysql.createConnection({ //newly added!
     connectionLimit:10,
     host: "sql9.freemysqlhosting.net",
-    user: "sql9531512", // mysql id
-    password: "Ehie5kJScc", // mysql password
-    database: "sql9531512", //database name
+    user: "sql9579587", // mysql id
+    password: "blq8zUBtEj", // mysql password
+    database: "sql9579587", //database name
 });
   
   
@@ -63,7 +63,7 @@ app.post("/insert", (req, res) => {
 
 
 app.get("/getNotes", (req, res) => {
-  connection.query("SELECT * FROM JournalEntries", (err, result) => {
+  connection.query("SELECT * FROM JournalEntries ORDER BY dateTime DESC ", (err, result) => {
       if (err) {
           console.log(err);
       }
@@ -93,18 +93,14 @@ app.put("/update", (req, res) => {
   );
 });
 
-app.delete("/delete", (req, res) => {
-  let title = req.body.title;
-  connection.query("DELETE FROM JournalEntries WHERE title= ?", [title], (err, result) => {
-      if (err) {
-          console.log(err);
-      }
-      else {
-        console.log(title);
-        res.send(result);
-      }
-  })
-});
+app.delete("/delete/:id", (req, res) => {
+  const id = req.params.id;
+  connection.query("DELETE FROM JournalEntries WHERE id= ?", id, (err,result)=>{
+    if(err) {
+    console.log(err)
+            } 
+    })
+    })
 
 app.post("/insertChecklist", (req, res) => {
   var today = new Date();

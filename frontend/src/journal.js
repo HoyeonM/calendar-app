@@ -2,155 +2,110 @@ import { useState } from 'react';
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import Axios from 'axios';
 import './App.css';
-import React from 'react';
-
-//선택된 인덱스의 아이디 불러오기..
+import React, {useEffect} from 'react'
+var x = 2;   
 
 function Journal() {
-    let currentId = 0;
-    const [note, setNote] = useState("");
-    const [title, setTitle] = useState("");
-    const [dateTime, setDate] = useState("");
-    const [id,setID] = useState(0);
-    const [notesArray, setNotesArray] = useState([]);
-    const [showNotes, setShowNotes] = useState(false);
-    // var buttonText = showNotes ? "Hide Notes" : "Show Notes";
+  let currentId = 1;
+  const [note, setNote] = useState("");
+  const [title, setTitle] = useState("");
+  const [dateTime, setDate] = useState("");
+  //const [id,setID] = useState(0);
+  const [notesArray, setNotesArray] = useState([]);
+  var loaded = true;
 
-    const getNotes = () => {
-      Axios.get("http://localhost:3306/getNotes").then((res) => {
-        setNotesArray(res.data);
-        console.log(res.data);
-      })
-    }
 
-    const manageshowAllNotes = () => {
-      setShowNotes(!showNotes);
-    }
+  useEffect ( () => {
+        Axios.get("http://localhost:3307/getNotes")
+        .then(res=>setNotesArray(res.data))
+  }, []);
 
-    const hideAllNotes = () => {
-      setShowNotes(false);
-    }
+  const getNotes = ()=>{
+    Axios.get("http://localhost:3307/getNotes").then((res) => {
+      setNotesArray(res.data);
+    })
+  }
 
-   const emptyInput = () =>{
-    setTitle("");
-    setNote("");
-   }
-    
-   const addNote = () => {
-      Axios.post("http://localhost:3306/insert", {
-        title: title, 
-        note: note, 
-        dateTime: dateTime,
-      })
-     .then(res => {
-        console.log("Successful note add!");
-        window.alert("your note is successfully added!");
-        //console.log(res.data);
-      
-      })
-   }
-
-   const updateNote = () =>{
-    Axios.put("http://localhost:3306/update", { 
-       title: title, 
-       note: note, 
-       dateTime: dateTime,
-   }).then(() => {
-       console.log("Edits updated successful");
-   });
+ const addNote = () => {
+    Axios.post("http://localhost:3307/insert", {
+      title: title, 
+      note: note, 
+      dateTime: dateTime,
+    })
+   .then(res => {
+      console.log("Successful note add!");
+    })
+    getNotes();
+    console.log(notesArray);
+   // displayNotes();
  }
 
-   const deleteNote = (title) => {
-      console.log(title);
-      let answer = window.confirm("Are you sure want to delete?");
-        if (answer) {
-          Axios.delete("http://localhost:3306/delete", {
-            title:title
-          })
-          .then(res => {
-            console.log(res);
-            console.log(res.data);
-            setNotesArray(
-                notesArray.filter((item) => {
-                    return item.title != title;
-                })
-            )
-          });
-        }
-    }
-    const setCurrentView = (id) =>{
-      setTitle(notesArray[id].title);
-      setNote(notesArray[id].body);
-      // document.getElementById('up').onclick = function() {
-      //   updateNote(currentId);
-      //  }
-    }
+ const deleteNote = (id) => {
+  Axios.delete(`http://localhost:3307/delete/${id}`).then((response)=>{
+      alert("you deleted a post")
+  })
+}
 
-    const handleClick = event => {
-      console.log(event.target.id);
-      console.log('div clicked');
-  
-    };
+const handleClick = event => {
+  const child = document.getElementById('dom');
+
+  child.parentElement.remove();
+  console.log(event.target.id);
+  console.log('div clicked');
+
+};
+function reload(deletingNoteID){
+  var div = document.getElementById(deletingNoteID);
+  div.parentNode.removeChild(div);
+}
+
 
     return (
-      <div class = "journal">
-         <div class="journal__preview">
-            <input class="journal__title" type="text"  value={title} 
-            placeholder="New Journal Entry Title..." 
-               onChange={(event) =>{
-               setTitle(event.target.value);}}></input>
-            <textarea class="journal__body" value={note}
-               onChange={(event) =>{
+      <div className = "journal" >
+         
+            <div className="note">
+            <div className="note-input" >
+              <div className="note-wrapper">
+                <input type="text" id = "note-title" placeholder="Title of your note" 
+                  onChange={(event) =>{
+                    setTitle(event.target.value);}}></input>
+                <textarea  id="note-content" placeholder="Write your note here...." rows="5"
+                onChange={(event) =>{
                setNote(event.target.value);
-               } }
-               placeholder="Journal here..."
-               ></textarea>
-         </div>
-         { <div class="journal__sidebar">
-            <button onClick={() => {
-              addNote();
-              emptyInput();
-            }}
-            class="journal__add" type="button">Add Note</button>
-            <button onClick={updateNote} class="journal__update" type="button">Update Note</button>
+               } }></textarea>
 
-
-            <button onClick={() => {
-              manageshowAllNotes();
-              getNotes();
-              }}
-              class="journal__getNote" type="button"> Show All Notes
-              </button>
-              {/* {showNotes ? getNotes() : null} */}
-
-              <button onClick={()=> {
-                // manageshowAllNotes();
-              }}
-              >Hide All Notes</button>
-
-              <div className='notes'>
-                {notesArray.map((notes,index) => {
-                  return (
-                    <div key={index}>
-                      <p className='notes_content'> Title: {notes.title}</p>
-                      <p className='notes_content'> Body: {notes.body}</p>
-                      <p className='notes_content'> Time Added: {notes.dateTime}</p>
-                      
-                      <button className="deletebtn" onClick={e=> {
-                        handleClick(e, index);
-                        deleteNote(notes.title);
-                      }}>Delete</button>
-                    </div>
-
-                ); 
-            })}
-            {/* {showNotes ? getNotes() : null} */}
+                <button onClick={addNote} 
+                 id="add-note-btn" className="btn" type = "button"   >
+                  <span><i className="fas fa-plus"></i></span>
+                  Add Note
+                </button>
+              </div>
             </div>
-            {/* {showNotes ? getNotes() : null} */}
-         </div> 
-         }
+            
+            <div className="note-list" onLoad={getNotes}>           
+            {Array.isArray(notesArray) ?
+                notesArray.map((notes,index) => {
+                  return (
+                    <div id = {notes.dateTime} className='note-item' key={index}>
+                      <h1 className='notes_content'> {notes.title}</h1>
+                      <p className='notes_content'> {notes.body}</p>
+                      <p className='notes_content'> {notes.dateTime}</p>
+                      
+                      <button className="notes_btn" onClick={e=> {
+                        deleteNote(notes.id);
+                        reload(notes.dateTime);
+                      }}>Delete</button>
+
+                    </div>
+                )})
+              : null}
+            </div>
+            
+            
+          </div>
+         
       </div>  
     );
- }
+}
 
  export default Journal;
