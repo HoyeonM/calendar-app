@@ -4,6 +4,7 @@ import 'react-calendar/dist/Calendar.css';
 import './App.css';
 import Passcode from './passcode.js';
 import Journal from './journal.js';
+import TodoForm from './todoForm';
 
 
 function SearchBar() { 
@@ -41,7 +42,11 @@ function App() {
           onChange={setDate} 
           value={date} 
         />
-      </div>      
+      </div>
+      <div className= '_todo'>
+        <span className = 'bold'>Checklist:</span>{''}
+        <TodoForm classname = 'todo'/>
+      </div>
       <div className='_journal'>
         <span className = 'bold'>Journal</span>{''}
         <Journal />
