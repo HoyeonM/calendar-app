@@ -3,10 +3,13 @@ import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import Axios from 'axios';
 import './App.css';
 import React, {useEffect} from 'react'
+import Modal from 'react-modal'; //this is for popup
 var x = 2;   
 
 function Journal() {
   let currentId = 1;
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [passcode, setPasscode] = useState("");
   const [note, setNote] = useState("");
   const [title, setTitle] = useState("");
   const [dateTime, setDate] = useState("");
@@ -15,16 +18,30 @@ function Journal() {
   var loaded = true;
 
 
+  const closeModal = () => {
+    setModalIsOpen(false);
+
+  };
+  const openModal = () => {
+    setModalIsOpen(true);
+  };
+
   useEffect ( () => {
         Axios.get("http://localhost:3307/getNotes")
         .then(res=>setNotesArray(res.data))
   }, []);
+
+  const handlChange = (e) => {
+    setPasscode(e.target.value);
+};
 
   const getNotes = ()=>{
     Axios.get("http://localhost:3307/getNotes").then((res) => {
       setNotesArray(res.data);
     })
   }
+
+
 
  const addNote = () => {
     Axios.post("http://localhost:3307/insert", {
@@ -34,26 +51,42 @@ function Journal() {
     })
    .then(res => {
       console.log("Successful note add!");
+      console.log(res.data);
     })
     getNotes();
     console.log(notesArray);
    // displayNotes();
  }
+ 
+ const resetInput = () => {
+  setTitle("");
+  setNote("");
+ }
 
  const deleteNote = (id) => {
-  Axios.delete(`http://localhost:3307/delete/${id}`).then((response)=>{
-      alert("you deleted a post")
-  })
+  if(window.confirm("You really want to delete this note?")){
+    Axios.delete(`http://localhost:3307/delete/${id}`).
+    then((res)=>{
+      console.log(res.data);
+      console.log("note deleted!");
+
+    })
+  }
 }
 
-const handleClick = event => {
-  const child = document.getElementById('dom');
+const hideAllNotes = () => {
+  setNotesArray("");
+}
 
-  child.parentElement.remove();
-  console.log(event.target.id);
-  console.log('div clicked');
 
-};
+// const handleClick = event => {
+//   const child = document.getElementById('dom');
+
+//   child.parentElement.remove();
+//   console.log(event.target.id);
+//   console.log('div clicked');
+
+// };
 function reload(deletingNoteID){
   var div = document.getElementById(deletingNoteID);
   div.parentNode.removeChild(div);
@@ -74,11 +107,28 @@ function reload(deletingNoteID){
                setNote(event.target.value);
                } }></textarea>
 
-                <button onClick={addNote} 
+                <button onClick={()=>{
+                  addNote();
+                  resetInput();
+                }}
                  id="add-note-btn" className="btn" type = "button"   >
                   <span><i className="fas fa-plus"></i></span>
                   Add Note
                 </button>
+
+                <button onClick={getNotes} 
+                 id="getAll-note-btn" className="btn" type = "button"   >
+                  <span><i className="fas fa-plus"></i></span>
+                  Show All Notes
+                </button>
+
+                <button onClick={hideAllNotes} 
+                 id="hideAll-note-btn" className="btn" type = "button"   >
+                  <span><i className="fas fa-plus"></i></span>
+                  Hide All Notes
+                </button>
+
+                
               </div>
             </div>
             
@@ -95,6 +145,18 @@ function reload(deletingNoteID){
                         deleteNote(notes.id);
                         reload(notes.dateTime);
                       }}>Delete</button>
+
+                      <button className="notes_btn" onClick={openModal}
+                      >
+                        Hide
+                      </button>
+
+                      <Modal className='Modal' isOpen={modalIsOpen} onRequestClose={closeModal}>
+      	              <h3>Type your Passcode</h3>
+                        <input onChange={handlChange}/>
+                        <button onClick={closeModal}>Submit</button>
+                        <button onClick={closeModal}>Close</button>
+                      </Modal>
 
                     </div>
                 )})

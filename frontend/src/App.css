@@ -73,7 +73,7 @@ abbr[title] {
   border: 2px solid rgba(0, 0, 0, 0.2);
   font-size: 1.05rem;
   padding:  0.55rem;
-  margin-buttom: 0.8rem;
+  margin-bottom: 0.8rem;
   border-radius: 2rem;
 }
 
@@ -96,6 +96,7 @@ abbr[title] {
   font-size: 1rem;
   cursor: pointer;
   transition: all 0.5s ease-in-out;
+  margin-right: 10px;
 }
 
 .btn:focus {
