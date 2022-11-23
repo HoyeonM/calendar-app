@@ -7,6 +7,8 @@ function Passcode(){
     const [modalIsOpen, setModalIsOpen] = useState(false);
     const [passcode, setPasscode] = useState("");
     const [alertText, setAlertText] = useState("");
+
+    Modal.setAppElement('#root');
     
     const closeModal = () => {
         setModalIsOpen(false);
@@ -24,7 +26,7 @@ function Passcode(){
         const textbox = {
           inText: JSON.stringify({passcode}),
         };
-        fetch("http://localhost:3307/passcode", { 
+        fetch("http://localhost:3306/passcode", { 
           method: "post", 
           headers: {
             "content-type": "application/json",
@@ -43,7 +45,7 @@ function Passcode(){
             <button className='headerbtn' onClick={openModal}>
                 <span className="material-symbols-outlined">pin</span> 
             </button>
-            <Modal isOpen={modalIsOpen} onRequestClose={closeModal}>
+            <Modal className='Modal' isOpen={modalIsOpen} onRequestClose={closeModal}>
       	        <h3>Your new Passcode</h3>
                 <input
                     onChange={handlChange}

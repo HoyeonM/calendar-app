@@ -5,6 +5,7 @@ const cors = require("cors");
 const bodyParser = require("body-parser");
 const mysql = require("mysql");
 
+
 var connection = mysql.createConnection({ //newly added!
     connectionLimit:10,
     host: "sql9.freemysqlhosting.net",
@@ -12,7 +13,6 @@ var connection = mysql.createConnection({ //newly added!
     password: "blq8zUBtEj", // mysql password
     database: "sql9579587", //database name
 });
-  
   
 
 app.use(bodyParser.urlencoded({ extended: false }));
