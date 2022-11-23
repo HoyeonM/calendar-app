@@ -15,7 +15,7 @@ function TodoForm() {
   const [checklistArray, setChecklistArray] = useState([]);
    
   const getChecklist = () => {
-    Axios.get("http://localhost:3306/getChecklist").then((res) => {
+    Axios.get("http://localhost:3307/getChecklist").then((res) => {
       setChecklistArray(res.data);
       console.log(res.data);
     })
@@ -32,7 +32,7 @@ function TodoForm() {
   }
   
   const addChecklist = () => {
-    Axios.post("http://localhost:3306/insertChecklist", {
+    Axios.post("http://localhost:3307/insertChecklist", {
       title: title, 
       entry: entry, 
       dueDate: dueDate,
@@ -44,7 +44,7 @@ function TodoForm() {
   }
    
   const updateChecklist = () =>{
-    Axios.put("http://localhost:3306/updateChecklist", { 
+    Axios.put("http://localhost:3307/updateChecklist", { 
       title: title, 
       entry: entry, 
       dueDate: dueDate,
@@ -58,7 +58,7 @@ function TodoForm() {
     console.log(title);
     let answer = window.confirm("Are you sure want to delete?");
     if (answer) {
-      Axios.delete("http://localhost:3306/deleteChecklist", {
+      Axios.delete("http://localhost:3307/deleteChecklist", {
         title: title
       })
     .then(res => {
