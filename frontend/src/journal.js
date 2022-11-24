@@ -10,11 +10,13 @@ function Journal() {
   let currentId = 1;
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [passcode, setPasscode] = useState("");
+  const [hidePasscode, setHidePasscode] = useState("");
   const [note, setNote] = useState("");
   const [title, setTitle] = useState("");
   const [dateTime, setDate] = useState("");
   //const [id,setID] = useState(0);
   const [notesArray, setNotesArray] = useState([]);
+  const [alertText, setAlertText] = useState("");
   var loaded = true;
 
 
@@ -32,12 +34,18 @@ function Journal() {
   }, []);
 
   const handlChange = (e) => {
-    setPasscode(e.target.value);
+    setHidePasscode(e.target.value);
 };
 
   const getNotes = ()=>{
     Axios.get("http://localhost:3307/getNotes").then((res) => {
       setNotesArray(res.data);
+    })
+  }
+
+  const getPassword = () => {
+    Axios.get("http://localhost:3307/getPassword").then((res) => {
+      setPasscode(res.data);
     })
   }
 
@@ -154,7 +162,11 @@ function reload(deletingNoteID){
                       <Modal className='Modal' isOpen={modalIsOpen} onRequestClose={closeModal}>
       	              <h3>Type your Passcode</h3>
                         <input onChange={handlChange}/>
-                        <button onClick={closeModal}>Submit</button>
+                        <button onClick= {e=>{
+                          getPassword();
+
+                        }}>Submit</button>
+                        <h3>{alertText}</h3>
                         <button onClick={closeModal}>Close</button>
                       </Modal>
 
