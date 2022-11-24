@@ -102,7 +102,7 @@ function reload(deletingNoteID){
                 <button onClick={()=>{
                   addNote();
                   getNotes();
-                  reload();
+                 // reload();
                   resetInput();
                 }}
                  id="add-note-btn" className="btn" type = "button"   >
