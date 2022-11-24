@@ -42,6 +42,10 @@ abbr[title] {
 .material-symbols-outlined {
   padding-right: 15px;
 }
+
+
+
+
 .note {
   max-width: 1000px;
   margin: 3rem auto;
@@ -110,7 +114,7 @@ abbr[title] {
 
  .note-list  {
   margin: 2rem 0;
-  background-image: linear-gradient(coral, #c99f85);
+  background-image: linear-gradient(coral, coral);
   padding: 2rem;
   border-radius: 5px;
 }
@@ -146,83 +150,6 @@ abbr[title] {
 }
 
 
-._todo{
-  margin-top: 50px;
-}
-.todo {
-  margin-left: 50px;
-  margin-right: 50px;
-  margin-top: 20px;
-  margin-bottom: 40px;
-  display: flex;
-  justify-content: center;
-  padding: 1em;
-  align-items: center;
-  height: 200px;
-  border: solid;
-  border-color:  coral;
-  padding-bottom: 50px;
-  padding-top: 50px;
-}
-
-.todo * {
-  font-family: sans-serif;
-}
-
-.todo_sidebar {
-  border-right: 2px solid #dddddd;
-  flex-shrink: 0;
-  overflow-y: auto;
-  width: 300px;  
-}
-
-.todo_save {
-  background:coral;
-  border: none;
-  border-radius: 7px;
-  color: #ffffff;
-  cursor: pointer;
-  font-size: 1.25em;
-  font-weight: bold;
-  margin-bottom: 1em;
-  padding: 0.75em 0;
-  width: 100%;
-}
-
-
-
-.todo_preview {
-  display: flex;
-  flex-direction: column;
-  flex-grow: 1;
-}
-
-.todo_body {
-  border-color: black;
-  width: 70%;
-  height: 170px;
-  font-family: 'Nunito Sans', sans-serif;
-  font-weight: bold;
-  font-size: medium;
-
-}
-
-.todo_title {
-  font-size: 2em;
-  font-weight: bold;  
-  width:70%;
-  margin-bottom: 10px;
-  margin-top: 10px;
-  font-family: 'Nunito Sans', sans-serif;
-  font-weight: bold;
-}
-
-.todoDuedate {
-  font-family: 'Nunito Sans', sans-serif;
-  font-weight: bold;
-  margin-top: 20px;
-  color: blue;
-}
 
 /* pin / notification style */
 .headerbtn{
@@ -264,4 +191,86 @@ abbr[title] {
     padding-left: 150px;
     padding-top:50px;
     background-color: papayawhip;
+}
+
+.input-bar{
+  background: none;
+  border-color: red;
+}
+
+.tag-btn{
+  background: none;
+  border-color: red;
+  cursor: pointer;
+}
+
+
+/* Remove margins and padding from the list *
+//////////////////////////////////////////////////////////////////////////////////////////
+*/
+.todo-input {
+  display: flex;
+  margin: auto;
+  align-self: center;
+  padding: 10px;
+  width: 70%;
+  border: 2px solid rgba(0, 0, 0, 0.2);
+  font-size: 1.05rem;
+  padding: 0.55rem;
+  margin-left: 7rem;
+  margin-bottom: 0.8rem;
+  border-radius: 2rem;
+}
+
+.todo-input:focus {
+  outline: none;
+}
+
+.done {
+  text-decoration: line-through;
+}
+.alltodos{
+    margin: 2rem 0;
+    margin-left: 1.75rem;
+    margin-right: 1.75rem;
+    background: linear-gradient(coral, coral);
+    padding: 2rem;
+    border-radius: 5px;
+}
+.todo {
+  display: flex;
+  background: rgb(255, 255, 255);
+  margin: 1rem;
+  padding: 1.5rem;
+  border-radius: 10px;
+  box-shadow: 0 0 7px 0 rgb(0 0 0 / 30%);
+}
+
+.checkbox {
+  display: flex;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  margin-right: 10px;
+  cursor: pointer;
+  background: #d9d9d9;
+  font-size: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid #fff;
+  transition: all 300ms ease;
+}
+
+.checkbox:hover {
+  opacity: 0.8;
+}
+
+.delete {
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.delete:hover {
+  opacity: 0.8;
 }
