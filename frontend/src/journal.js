@@ -4,19 +4,14 @@ import Axios from 'axios';
 import './App.css';
 import React, {useEffect} from 'react'
 import Modal from 'react-modal'; //this is for popup
-var x = 2;   
 
 function Journal() {
-  let currentId = 1;
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [passcode, setPasscode] = useState("");
   const [note, setNote] = useState("");
   const [title, setTitle] = useState("");
   const [dateTime, setDate] = useState("");
-  //const [id,setID] = useState(0);
   const [notesArray, setNotesArray] = useState([]);
-  var loaded = true;
-
 
   const closeModal = () => {
     setModalIsOpen(false);
@@ -55,7 +50,6 @@ function Journal() {
     })
     getNotes();
     console.log(notesArray);
-   // displayNotes();
  }
  
  const resetInput = () => {
@@ -78,24 +72,12 @@ const hideAllNotes = () => {
   setNotesArray("");
 }
 
-
-// const handleClick = event => {
-//   const child = document.getElementById('dom');
-
-//   child.parentElement.remove();
-//   console.log(event.target.id);
-//   console.log('div clicked');
-
-// };
 function reload(deletingNoteID){
   var div = document.getElementById(deletingNoteID);
   div.parentNode.removeChild(div);
 }
-
-
     return (
-      <div className = "journal" >
-         
+      <div className = "journal" > 
             <div className="note">
             <div className="note-input" >
               <div className="note-wrapper">

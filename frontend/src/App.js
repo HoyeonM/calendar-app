@@ -4,7 +4,7 @@ import 'react-calendar/dist/Calendar.css';
 import './App.css';
 import Passcode from './passcode.js';
 import Journal from './journal.js';
-import TodoForm from './todoForm';
+import TodoForm from './TodoForm';
 
 
 function SearchBar() { 
@@ -45,7 +45,7 @@ function App() {
       </div>
       <div className= '_todo'>
         <span className = 'bold'>Checklist:</span>{''}
-        <TodoForm classname = 'todo'/>
+        <TodoForm/>
       </div>
       <div className='_journal'>
         <span className = 'bold'>Journal</span>{''}

@@ -73,15 +73,16 @@ app.get("/getNotes", (req, res) => {
   });
 });
 
-app.put("/update", (req, res) => {
-  //const id = 2;
+app.put("/update/:id", (req, res) => {
+
+  const id = req.params.id;
   const title = req.body.title;
   const note = req.body.note;
   const dateTime = req.body.dateTime;;
 
   connection.query(
       "UPDATE JournalEntries SET title = ?, body = ?, dateTime = ? WHERE id = ?",
-      [title, note, dateTime, 2],
+      [title, note, dateTime, id],
       (err, result) => {
           if (err) {
               console.log(err);
@@ -130,23 +131,6 @@ app.post("/insertChecklist", (req, res) => {
   );
 
 })
-
-app.delete("/deleteChecklist", (req, res) => {
-  const id = 2;
-  connection.connect(function(err) {
-    if (err) throw err;
-    console.log("Connected!");
-  });
-  connection.query("DELETE FROM checklist WHERE id = ?", id, (err, result) => {
-      if (err) {
-          console.log(err);
-      }
-      else {
-          res.send(result);
-      }
-  })
-});
-
 
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`)
