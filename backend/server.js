@@ -73,6 +73,39 @@ app.get("/getNotes", (req, res) => {
   });
 });
 
+app.get("/getTodos", (req, res) => {
+  connection.query("SELECT * FROM todoList  ", (err, result) => {
+      if (err) {
+          console.log(err);
+      }
+      else {
+          res.send(result)
+      }
+  });
+});
+
+app.post("/insertTodo", (req, res) => {
+    var today = new Date();
+    var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+    var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+    var dateTimeNow = date+' '+time;
+  
+    const dateTime = dateTimeNow;
+
+    connection.query (
+        "INSERT INTO todoList (todo, isCompleted, datetime) VALUES (?, ?, ?)", [req.body.todo, req.body.isCompleted, dateTime], 
+        (err, result) => {
+            if (err) {
+                console.log(err);
+            }
+            else {
+                res.send(result);
+            }
+        }
+    );
+  
+  })
+
 app.put("/update/:id", (req, res) => {
 
   const id = req.params.id;
@@ -102,6 +135,35 @@ app.delete("/delete/:id", (req, res) => {
             } 
     })
     })
+
+app.delete("/deleteTodo/:id", (req, res) => {
+        const id = req.params.id;
+        console.log(id)
+        connection.query("DELETE FROM todoList WHERE id= ?", id, (err,result)=>{
+          if(err) {
+          console.log(err)
+        } 
+    })
+    })
+
+    app.put("/updateTodo", (req, res) => {
+        console.log(req.body.id)
+        console.log(req.body.status)
+        const id = req.body.id;
+        const status = req.body.status;
+        connection.query(
+            "UPDATE todoList SET isCompleted = ? WHERE id = ?",[status,id],
+            (err, result) => {
+                if (err) {
+                    console.log(err);
+                }
+                else {
+                    res.send(result);
+                }
+            }
+        );
+      });
+
 
 app.post("/insertChecklist", (req, res) => {
   var today = new Date();
