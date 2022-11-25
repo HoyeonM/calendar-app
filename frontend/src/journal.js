@@ -14,8 +14,6 @@ function Journal() {
   const [dateTime, setDate] = useState("");
   const [notesArray, setNotesArray] = useState([]);
   const [alertText, setAlertText] = useState("");
-  var loaded = true;
-
 
   const closeModal = () => {
     setModalIsOpen(false);
@@ -62,10 +60,11 @@ function Journal() {
     console.log(notesArray);
  }
  
- const resetInput = () => {
-  setTitle("");
-  setNote("");
- }
+  function resetinput (){
+    document.getElementById('note-title').value = '';
+    document.getElementById('note-content').value = '';
+  }
+
 
  const deleteNote = (id) => {
   if(window.confirm("You really want to delete this note?")){
@@ -91,7 +90,7 @@ function reload(deletingNoteID){
             <div className="note">
             <div className="note-input" >
               <div className="note-wrapper">
-                <input type="text" id = "note-title" placeholder="Title of your note" 
+              <input type="text" id = "note-title" placeholder="Title of your note" 
                   onChange={(event) =>{
                     setTitle(event.target.value);}}></input>
                 <textarea  id="note-content" placeholder="Write your note here...." rows="5"
@@ -102,8 +101,7 @@ function reload(deletingNoteID){
                 <button onClick={()=>{
                   addNote();
                   getNotes();
-                 // reload();
-                  resetInput();
+                 resetinput();
                 }}
                  id="add-note-btn" className="btn" type = "button"   >
                   <span><i className="fas fa-plus"></i></span>
