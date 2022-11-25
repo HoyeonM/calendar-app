@@ -14,6 +14,8 @@ function Journal() {
   const [dateTime, setDate] = useState("");
   const [notesArray, setNotesArray] = useState([]);
   const [show, setShow] = useState(false);
+  const [noteIndex, setNoteIndex] = useState("");
+
   var hideShowBtn = show ? "Show" : "Hide";
 
   const toggleShow = () => {
@@ -25,7 +27,8 @@ function Journal() {
     setModalIsOpen(false);
   };
 
-  const openModal = () => {
+  const openModal = (i) => {
+    setNoteIndex(i);
     setModalIsOpen(true);
   };
 
@@ -82,7 +85,7 @@ const hideAllNotes = () => {
 }
 
 const blurcontents = () => {
-
+  console.log("this note's index from notesArray: " + noteIndex);
 }
 
 function reload(deletingNoteID){
@@ -145,27 +148,27 @@ function reload(deletingNoteID){
                         reload(notes.dateTime);
                       }}>Delete</button>
 
-                      <button className="notes_btn" onClick={(index) => {
-                        openModal();
-                        console.log(notesArray.indexOf(notes));
+                      <button className="notes_btn" onClick={() => {
+                        openModal(notesArray.indexOf(notes));
                       }}>Hide</button>
 
-                      <button className="notes_btn" onClick={() => {
+                      {/* <button className="notes_btn" onClick={() => {
                         openModal();
-                      }}>Show</button>
+                      }}>Show</button> */}
 
                       {/* hide/show pop-up */}
                       <Modal className='Modal' isOpen={modalIsOpen} onRequestClose={closeModal}>
+                        
       	              <h3>Type your Passcode</h3>
-                      <input type="text" id = "pass" placeholder="Title of your note" 
-                  onChange={(event) =>{
+                      <input type="text" id = "pass" placeholder="your passcode" 
+                        onChange={(event) =>{
                         getPassword();
                         setHidePasscode(event.target.value);}}></input>
                         <button onClick= {()=>{
                            getPassword();
                           if(passcode[0].password == hidePasscode){
                             console.log("MATCHED");
-                            console.log(notesArray.indexOf(notes));
+                            blurcontents();
                             closeModal();
                           } else {
                             console.log("DID NOT MATCH")
