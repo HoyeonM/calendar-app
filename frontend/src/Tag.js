@@ -28,18 +28,36 @@ function tag(){
           setAlertText(json.text);
         });
     }
+
+    function dropdownFunction(){
+        document.getElementById("dropdown").classList.toggle("show");
+    }
+
+    function populateOptions(){
+        document.getElementById("dropdownList")
+    }
     
     return (
-        <div className='input-bar'>
-          <input 
-            type="text"
-            placeholder="Create New Tag"
-            onChange={handlChange}
-          />
-          <button type="submit" onClick={onClickSubmit}>
-            <h4>{alertText}</h4> 
-            <span className='tag-btn'>Create</span>
-          </button>
+        <div className='tag-UI'>
+            <div className='input-bar'>
+                <input 
+                    type="text"
+                    placeholder="Create New Tag"
+                    onChange={handlChange}
+                />
+                <button type="submit" onClick={onClickSubmit}>
+                    <h4>{alertText}</h4> 
+                    <span className='tag-btn'>Create</span>
+                </button>
+            </div>
+            <div classname='dropdown-bar'>
+                <div id="dropdown" class="dropdown-content">
+                    <select name="dropdownList">
+                        <option value="Tag 1" selected>Dropdown Test Tag 1</option>
+                        <option value="Tag 2" selected>Dropdown Test Tag 2</option>
+                    </select>
+                </div>
+            </div>
         </div>
       )
 }
