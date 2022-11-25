@@ -13,7 +13,13 @@ function Journal() {
   const [title, setTitle] = useState("");
   const [dateTime, setDate] = useState("");
   const [notesArray, setNotesArray] = useState([]);
-  const [alertText, setAlertText] = useState("");
+  const [show, setShow] = useState(false);
+  var hideShowBtn = show ? "Show" : "Hide";
+
+  const toggleShow = () => {
+    setShow(!show);
+  }
+
 
   const closeModal = () => {
     setModalIsOpen(false);
@@ -28,10 +34,6 @@ function Journal() {
         .then(res=>setNotesArray(res.data))
   }, []);
 
-//   const handlChange = (e) => {
-//     setHidePasscode(e.target.value);
-//     console.log(hidePasscode);
-// };
 
   const getNotes = ()=>{
     Axios.get("http://localhost:3307/getNotes").then((res) => {
@@ -61,16 +63,6 @@ function Journal() {
     console.log(notesArray);
  }
 
-  // function checkPasscode(){
-  //   getPassword();
-  //   console.log("comparing...")
-  //   if (passcode[0].password == hidePasscode){
-  //     console.log("MACTHED")
-  //   }else{
-  //     console.log("DID NOT MATCHED")
-  //   }
-  // }
-
   function resetinput (){
     document.getElementById('note-title').value = '';
     document.getElementById('note-content').value = '';
@@ -89,10 +81,15 @@ const hideAllNotes = () => {
   setNotesArray("");
 }
 
+const blurcontents = () => {
+
+}
+
 function reload(deletingNoteID){
   var div = document.getElementById(deletingNoteID);
   div.parentNode.removeChild(div);
 }
+
 
     return (
       <div className = "journal" > 
@@ -133,47 +130,50 @@ function reload(deletingNoteID){
               </div>
             </div>
             
-            <div className="note-list" onLoad={getNotes}>           
+            <div className="note-list" onLoad={getNotes}>  
+
             {Array.isArray(notesArray) ?
                 notesArray.map((notes,index) => {
-                  return (
+                    return(
                     <div id = {notes.dateTime} className='note-item' key={index}>
                       <h1 className='notes_content'> {notes.title}</h1>
                       <p className='notes_content'> {notes.body}</p>
                       <p className='notes_content'> {notes.dateTime}</p>
-                      
-                      <button className="notes_btn" onClick={e=> {
+                  
+                      <button className="notes_btn" onClick={()=> {
                         deleteNote(notes.id);
                         reload(notes.dateTime);
                       }}>Delete</button>
 
-                      <button className="notes_btn" onClick={openModal}
-                      >
-                        Hide
-                      </button>
+                      <button className="notes_btn" onClick={(index) => {
+                        openModal();
+                        console.log(notesArray.indexOf(notes));
+                      }}>Hide</button>
 
+                      <button className="notes_btn" onClick={() => {
+                        openModal();
+                      }}>Show</button>
+
+                      {/* hide/show pop-up */}
                       <Modal className='Modal' isOpen={modalIsOpen} onRequestClose={closeModal}>
       	              <h3>Type your Passcode</h3>
-
                       <input type="text" id = "pass" placeholder="Title of your note" 
                   onChange={(event) =>{
                         getPassword();
                         setHidePasscode(event.target.value);}}></input>
-
-                        <button onClick= {e=>{
+                        <button onClick= {()=>{
                            getPassword();
                           if(passcode[0].password == hidePasscode){
-                            console.log("MATCHED")
-                            // blurcontents();
+                            console.log("MATCHED");
+                            console.log(notesArray.indexOf(notes));
+                            closeModal();
                           } else {
-                            console.log(" DID NOT MATCH")
+                            console.log("DID NOT MATCH")
                             window.alert("retry");
                           }
                         }}>Submit</button>
-                        <h3>{alertText}</h3>
                         <button onClick={closeModal}>Close</button>
                       </Modal>
-
                     </div>
                 )})
               : null}
