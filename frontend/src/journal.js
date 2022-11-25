@@ -19,14 +19,14 @@ function Journal() {
 
   const closeModal = () => {
     setModalIsOpen(false);
-
   };
+
   const openModal = () => {
     setModalIsOpen(true);
   };
 
   useEffect ( () => {
-        Axios.get("http://localhost:3307/getNotes")
+        Axios.get("http://localhost:3306/getNotes")
         .then(res=>setNotesArray(res.data))
   }, []);
 
@@ -35,21 +35,30 @@ function Journal() {
 };
 
   const getNotes = ()=>{
-    Axios.get("http://localhost:3307/getNotes").then((res) => {
+    Axios.get("http://localhost:3306/getNotes").then((res) => {
       setNotesArray(res.data);
     })
   }
 
   const getPassword = () => {
-    Axios.get("http://localhost:3307/getPassword").then((res) => {
+    Axios.get("http://localhost:3306/getPassword").then((res) => {
+      console.log(res.data);
       setPasscode(res.data);
+      console.log({passcode});
     })
   }
 
+  const passwordMatch = ()=>{
+    if(hidePasscode===passcode){
+      window.alert("match!");
+    } else {
+      window.alert("retry");
+    }
+  }
 
 
  const addNote = () => {
-    Axios.post("http://localhost:3307/insert", {
+    Axios.post("http://localhost:3306/insert", {
       title: title, 
       note: note, 
       dateTime: dateTime,
@@ -69,11 +78,8 @@ function Journal() {
 
  const deleteNote = (id) => {
   if(window.confirm("You really want to delete this note?")){
-    Axios.delete(`http://localhost:3307/delete/${id}`).
-    then((res)=>{
+    Axios.delete(`http://localhost:3306/delete/${id}`).then((res)=>{
       console.log(res.data);
-      console.log("note deleted!");
-
     })
   }
 }
@@ -86,6 +92,7 @@ function reload(deletingNoteID){
   var div = document.getElementById(deletingNoteID);
   div.parentNode.removeChild(div);
 }
+
     return (
       <div className = "journal" > 
             <div className="note">
@@ -150,7 +157,7 @@ function reload(deletingNoteID){
                         <input onChange={handlChange}/>
                         <button onClick= {e=>{
                           getPassword();
-
+                          //passwordMatch();
                         }}>Submit</button>
                         <h3>{alertText}</h3>
                         <button onClick={closeModal}>Close</button>

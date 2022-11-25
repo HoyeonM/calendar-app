@@ -1,6 +1,6 @@
 const express = require("express");
 const app = express();
-const port = 3307; 
+const port = 3306; 
 const cors = require("cors");
 const bodyParser = require("body-parser");
 const mysql = require("mysql");
@@ -73,6 +73,17 @@ app.get("/getNotes", (req, res) => {
   });
 });
 
+app.get("/getPassword", (req, res) => {
+  connection.query("SELECT password FROM userPassword WHERE id = LAST_INSERT_ID(id) order by LAST_INSERT_ID(id) desc limit 1", (err,result) => {
+    if(err) {
+      console.log(err);
+    }else {
+      console.log(result);
+      res.send(result);
+    }
+  })
+})
+
 app.get("/getTodos", (req, res) => {
   connection.query("SELECT * FROM todoList  ", (err, result) => {
       if (err) {
@@ -131,10 +142,13 @@ app.delete("/delete/:id", (req, res) => {
   const id = req.params.id;
   connection.query("DELETE FROM JournalEntries WHERE id= ?", id, (err,result)=>{
     if(err) {
-    console.log(err)
-            } 
-    })
-    })
+      console.log(err);
+    } else{
+      console.log(result);
+      console.log("note deleted!");
+    }
+  })
+})
 
 app.delete("/deleteTodo/:id", (req, res) => {
         const id = req.params.id;
