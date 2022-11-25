@@ -30,6 +30,7 @@ function Journal() {
 
   const handlChange = (e) => {
     setHidePasscode(e.target.value);
+    console.log(hidePasscode);
 };
 
   const getNotes = ()=>{
@@ -40,18 +41,12 @@ function Journal() {
 
   const getPassword = () => {
     Axios.get("http://localhost:3306/getPassword").then((res) => {
-      console.log(res.data);
-      setPasscode(res.data);
-      console.log({passcode});
+      let json = JSON.parse(JSON.stringify(res.data));
+      let result = json[0];
+      console.log(result);
+      setPasscode(result);
+      console.log(passcode);
     })
-  }
-
-  const passwordMatch = ()=>{
-    if(hidePasscode===passcode){
-      window.alert("match!");
-    } else {
-      window.alert("retry");
-    }
   }
 
 
@@ -155,7 +150,12 @@ function reload(deletingNoteID){
                         <input onChange={handlChange}/>
                         <button onClick= {e=>{
                           getPassword();
-                          //passwordMatch();
+                          if(hidePasscode===passcode){
+                            // blurcontents();
+                          } else {
+                            window.alert("retry");
+                          }
+
                         }}>Submit</button>
                         <h3>{alertText}</h3>
                         <button onClick={closeModal}>Close</button>
