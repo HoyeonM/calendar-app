@@ -7,7 +7,7 @@ import Modal from 'react-modal'; //this is for popup
 
 function Journal() {
   const [modalIsOpen, setModalIsOpen] = useState(false);
-  const [passcode, setPasscode] = useState("");
+  const [passcode, setPasscode] = useState([]);
   const [hidePasscode, setHidePasscode] = useState("");
   const [note, setNote] = useState("");
   const [title, setTitle] = useState("");
@@ -24,34 +24,31 @@ function Journal() {
   };
 
   useEffect ( () => {
-        Axios.get("http://localhost:3306/getNotes")
+        Axios.get("http://localhost:3307/getNotes")
         .then(res=>setNotesArray(res.data))
   }, []);
 
-  const handlChange = (e) => {
-    setHidePasscode(e.target.value);
-    console.log(hidePasscode);
-};
+//   const handlChange = (e) => {
+//     setHidePasscode(e.target.value);
+//     console.log(hidePasscode);
+// };
 
   const getNotes = ()=>{
-    Axios.get("http://localhost:3306/getNotes").then((res) => {
+    Axios.get("http://localhost:3307/getNotes").then((res) => {
       setNotesArray(res.data);
     })
   }
 
   const getPassword = () => {
-    Axios.get("http://localhost:3306/getPassword").then((res) => {
-      let json = JSON.parse(JSON.stringify(res.data));
-      let result = json[0];
-      console.log(result);
-      setPasscode(result);
-      console.log(passcode);
+    Axios.get("http://localhost:3307/getPassword").then((res) => {
+      setPasscode(res.data);
+      console.log(res.data);
     })
   }
 
 
  const addNote = () => {
-    Axios.post("http://localhost:3306/insert", {
+    Axios.post("http://localhost:3307/insert", {
       title: title, 
       note: note, 
       dateTime: dateTime,
@@ -63,7 +60,17 @@ function Journal() {
     getNotes();
     console.log(notesArray);
  }
- 
+
+  // function checkPasscode(){
+  //   getPassword();
+  //   console.log("comparing...")
+  //   if (passcode[0].password == hidePasscode){
+  //     console.log("MACTHED")
+  //   }else{
+  //     console.log("DID NOT MATCHED")
+  //   }
+  // }
+
   function resetinput (){
     document.getElementById('note-title').value = '';
     document.getElementById('note-content').value = '';
@@ -72,7 +79,7 @@ function Journal() {
 
  const deleteNote = (id) => {
   if(window.confirm("You really want to delete this note?")){
-    Axios.delete(`http://localhost:3306/delete/${id}`).then((res)=>{
+    Axios.delete(`http://localhost:3307/delete/${id}`).then((res)=>{
       console.log(res.data);
     })
   }
@@ -103,7 +110,7 @@ function reload(deletingNoteID){
                 <button onClick={()=>{
                   addNote();
                   getNotes();
-                 resetinput();
+                  resetinput();
                 }}
                  id="add-note-btn" className="btn" type = "button"   >
                   <span><i className="fas fa-plus"></i></span>
@@ -147,15 +154,21 @@ function reload(deletingNoteID){
 
                       <Modal className='Modal' isOpen={modalIsOpen} onRequestClose={closeModal}>
       	              <h3>Type your Passcode</h3>
-                        <input onChange={handlChange}/>
+
+                      <input type="text" id = "pass" placeholder="Title of your note" 
+                  onChange={(event) =>{
+                        getPassword();
+                        setHidePasscode(event.target.value);}}></input>
+
                         <button onClick= {e=>{
-                          getPassword();
-                          if(hidePasscode===passcode){
+                           getPassword();
+                          if(passcode[0].password == hidePasscode){
+                            console.log("MATCHED")
                             // blurcontents();
                           } else {
+                            console.log(" DID NOT MATCH")
                             window.alert("retry");
                           }
-
                         }}>Submit</button>
                         <h3>{alertText}</h3>
                         <button onClick={closeModal}>Close</button>
