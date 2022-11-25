@@ -86,6 +86,7 @@ const hideAllNotes = () => {
 
 const blurcontents = () => {
   console.log("this note's index from notesArray: " + noteIndex);
+  let note_hide = notesArray[noteIndex];
 }
 
 function reload(deletingNoteID){
