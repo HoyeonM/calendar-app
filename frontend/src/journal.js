@@ -8,7 +8,8 @@ import Modal from 'react-modal'; //this is for popup
 function Journal() {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [passcode, setPasscode] = useState([]);
-  const [hidePasscode, setHidePasscode] = useState("");
+ // const [hidePasscode, setHidePasscode] = useState("");
+  var toHidePassword = 0;
   const [note, setNote] = useState("");
   const [title, setTitle] = useState("");
   const [dateTime, setDate] = useState("");
@@ -30,6 +31,8 @@ function Journal() {
   };
 
   useEffect ( () => {
+    getPassword();
+
         Axios.get("http://localhost:3307/getNotes")
         .then(res=>setNotesArray(res.data))
   }, []);
@@ -81,14 +84,23 @@ const hideAllNotes = () => {
   setNotesArray("");
 }
 
-const blurcontents = () => {
+function blurcontents(hidingNoteId) {
 
+  document.getElementById(hidingNoteId).style.filter = "blur(5px)";
+  // var div = document.getElementById(hidingNoteId);
+  // console.log("blurring content with id: ",hidingNoteId)
+  // document.getElementById(hidingNoteId).style.filter = "blur(5px)";
 }
 
 function reload(deletingNoteID){
   var div = document.getElementById(deletingNoteID);
   div.parentNode.removeChild(div);
 }
+
+// function fun() {  
+//   setHidePasscode(window.prompt ("Enter you password..."))
+//   console.log(hidePasscode);
+//   }  
 
 
     return (
@@ -144,36 +156,25 @@ function reload(deletingNoteID){
                         deleteNote(notes.id);
                         reload(notes.dateTime);
                       }}>Delete</button>
+      
+                      <button className="notes_btn_hide" onClick={() => {
+                        getPassword();
+                      const enteredPassword = prompt('Please enter your password:');
+                      console.log(passcode[0].password)
+                       if(passcode[0].password == enteredPassword){
+                           console.log("matched")
+                           document.getElementById(notes.dateTime).style.filter = "blur(5px)";
 
-                      <button className="notes_btn" onClick={(index) => {
-                        openModal();
-                        console.log(notesArray.indexOf(notes));
+                       }else{
+                         console.log("not match")
+                         window.alert("retry");
+                       }
                       }}>Hide</button>
 
-                      <button className="notes_btn" onClick={() => {
+                      <button className="notes_btn_show" onClick={() => {
                         openModal();
                       }}>Show</button>
 
-                      {/* hide/show pop-up */}
-                      <Modal className='Modal' isOpen={modalIsOpen} onRequestClose={closeModal}>
-      	              <h3>Type your Passcode</h3>
-                      <input type="text" id = "pass" placeholder="Title of your note" 
-                  onChange={(event) =>{
-                        getPassword();
-                        setHidePasscode(event.target.value);}}></input>
-                        <button onClick= {()=>{
-                           getPassword();
-                          if(passcode[0].password == hidePasscode){
-                            console.log("MATCHED");
-                            console.log(notesArray.indexOf(notes));
-                            closeModal();
-                          } else {
-                            console.log("DID NOT MATCH")
-                            window.alert("retry");
-                          }
-                        }}>Submit</button>
-                        <button onClick={closeModal}>Close</button>
-                      </Modal>
                     </div>
                 )})
               : null}
