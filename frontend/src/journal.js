@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { Component, useLayoutEffect, useState } from 'react';
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import Axios from 'axios';
 import './App.css';
@@ -17,28 +17,12 @@ function Journal() {
   const [show, setShow] = useState(false);
   const [noteIndex, setNoteIndex] = useState("");
 
-  var hideShowBtn = show ? "Show" : "Hide";
-
-  const toggleShow = () => {
-    setShow(!show);
-  }
-
-
-  // const closeModal = () => {
-  //   setModalIsOpen(false);
-  // };
-
-  // const openModal = (i) => {
-  //   setNoteIndex(i);
-  //   setModalIsOpen(true);
-  // };
 
   useEffect ( () => {
     getPassword();
-
         Axios.get("http://localhost:3307/getNotes")
         .then(res=>setNotesArray(res.data))
-  }, []);
+  },[]);
 
 
   const getNotes = ()=>{
@@ -52,6 +36,7 @@ function Journal() {
       setPasscode(res.data);
       console.log(res.data);
     })
+
   }
 
 
@@ -92,6 +77,26 @@ function reload(deletingNoteID){
   div.parentNode.removeChild(div);
 }
 
+//getNotes();
+
+function blurExisting(){
+    //getNotes();
+    notesArray.map((notes,index) => {
+      if((localStorage.getItem(notes.dateTime) == '1')){
+       // console.log(document.getElementById(notes.dateTime),"index: ", index)
+        var div = document.getElementById(notes.dateTime).children
+        div[0].style.filter = "blur(5px)";
+        div[1].style.filter = "blur(5px)";
+        div[2].style.filter = "blur(5px)";
+      }
+    })
+}
+
+
+useLayoutEffect(()=>{
+  blurExisting();
+})
+
     return (
       <div className = "journal" > 
             <div className="note">
@@ -121,11 +126,11 @@ function reload(deletingNoteID){
                   Show All Notes
                 </button>
 
-                <button onClick={hideAllNotes} 
+                {/* <button onClick={hideAllNotes} 
                  id="hideAll-note-btn" className="btn" type = "button"   >
                   <span><i className="fas fa-plus"></i></span>
                   Hide All Notes
-                </button>
+                </button> */}
 
                 
               </div>
@@ -136,11 +141,11 @@ function reload(deletingNoteID){
             {Array.isArray(notesArray) ?
                 notesArray.map((notes,index) => {
                     return(
-                      <div id = {notes.dateTime} className='note-item' key={index}>
+                     
+                      <div id = {notes.dateTime} className='note-item' key={index} >
                       <h1 className='notes_content'> {notes.title}</h1>
                       <p className='notes_content'> {notes.body}</p>
                       <p className='notes_content'> {notes.dateTime}</p>
-                  
                       <button className="notes_btn" onClick={()=> {
                         deleteNote(notes.id);
                         reload(notes.dateTime);
@@ -150,8 +155,8 @@ function reload(deletingNoteID){
                         getPassword();
                       const enteredPassword = prompt('Please enter your password:');
                        if(passcode[0].password == enteredPassword){
-                           //localStorage.setItem(notes.dateTime, "blur");
-                           const collection = document.getElementById(notes.dateTime).children;
+                           localStorage.setItem(notes.dateTime, "1");
+                            const collection = document.getElementById(notes.dateTime).children;
                             collection[0].style.filter = "blur(5px)";
                             collection[1].style.filter = "blur(5px)";
                             collection[2].style.filter = "blur(5px)";
@@ -164,8 +169,8 @@ function reload(deletingNoteID){
                       <button id = 'show' className="notes_btn_show" onClick={() => {
                         getPassword();
                         const enteredPassword = prompt('Please enter your password:');
-                         if(passcode[0].password == enteredPassword){
-                             //localStorage.setItem(notes.dateTime, "blur");
+                          if(passcode[0].password == enteredPassword){
+                          localStorage.setItem(notes.dateTime, "0");
                              const collection = document.getElementById(notes.dateTime).children;
                               collection[0].style.filter = "blur(0px)";
                               collection[1].style.filter = "blur(0px)";
@@ -178,14 +183,12 @@ function reload(deletingNoteID){
 
                     </div>
                 )})
+                
               : null}
+              
             </div>
-            
-            
           </div>
-         
       </div>  
     );
 }
-
  export default Journal;
