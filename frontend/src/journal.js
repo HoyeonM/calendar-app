@@ -24,14 +24,14 @@ function Journal() {
   }
 
 
-  const closeModal = () => {
-    setModalIsOpen(false);
-  };
+  // const closeModal = () => {
+  //   setModalIsOpen(false);
+  // };
 
-  const openModal = (i) => {
-    setNoteIndex(i);
-    setModalIsOpen(true);
-  };
+  // const openModal = (i) => {
+  //   setNoteIndex(i);
+  //   setModalIsOpen(true);
+  // };
 
   useEffect ( () => {
     getPassword();
@@ -87,21 +87,10 @@ const hideAllNotes = () => {
   setNotesArray("");
 }
 
-function blurcontents(hidingNoteId) {
-
-  document.getElementById(hidingNoteId).style.filter = "blur(5px)";
-  // var div = document.getElementById(hidingNoteId);
-  // console.log("blurring content with id: ",hidingNoteId)
-  // document.getElementById(hidingNoteId).style.filter = "blur(5px)";
-}
-
 function reload(deletingNoteID){
   var div = document.getElementById(deletingNoteID);
   div.parentNode.removeChild(div);
 }
-
-
-
 
     return (
       <div className = "journal" > 
@@ -147,7 +136,7 @@ function reload(deletingNoteID){
             {Array.isArray(notesArray) ?
                 notesArray.map((notes,index) => {
                     return(
-                    <div id = {notes.dateTime} className='note-item' key={index}>
+                      <div id = {notes.dateTime} className='note-item' key={index}>
                       <h1 className='notes_content'> {notes.title}</h1>
                       <p className='notes_content'> {notes.body}</p>
                       <p className='notes_content'> {notes.dateTime}</p>
@@ -160,19 +149,31 @@ function reload(deletingNoteID){
                       <button className="notes_btn_hide" onClick={() => {
                         getPassword();
                       const enteredPassword = prompt('Please enter your password:');
-                      console.log(passcode[0].password)
                        if(passcode[0].password == enteredPassword){
-                           console.log("matched")
-                           document.getElementById(notes.dateTime).style.filter = "blur(5px)";
-
+                           //localStorage.setItem(notes.dateTime, "blur");
+                           const collection = document.getElementById(notes.dateTime).children;
+                            collection[0].style.filter = "blur(5px)";
+                            collection[1].style.filter = "blur(5px)";
+                            collection[2].style.filter = "blur(5px)";
                        }else{
                          console.log("not match")
                          window.alert("retry");
                        }
                       }}>Hide</button>
 
-                      <button className="notes_btn_show" onClick={() => {
-                        openModal();
+                      <button id = 'show' className="notes_btn_show" onClick={() => {
+                        getPassword();
+                        const enteredPassword = prompt('Please enter your password:');
+                         if(passcode[0].password == enteredPassword){
+                             //localStorage.setItem(notes.dateTime, "blur");
+                             const collection = document.getElementById(notes.dateTime).children;
+                              collection[0].style.filter = "blur(0px)";
+                              collection[1].style.filter = "blur(0px)";
+                              collection[2].style.filter = "blur(0px)";
+                         }else{
+                           console.log("not match")
+                           window.alert("retry");
+                         }
                       }}>Show</button> 
 
                     </div>
