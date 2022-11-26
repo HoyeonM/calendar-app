@@ -69,7 +69,7 @@ function Journal() {
 }
 
 const hideAllNotes = () => {
-  setNotesArray("");
+  setNotesArray(null);
 }
 
 function reload(deletingNoteID){
@@ -81,15 +81,20 @@ function reload(deletingNoteID){
 
 function blurExisting(){
     //getNotes();
-    notesArray.map((notes,index) => {
-      if((localStorage.getItem(notes.dateTime) == '1')){
-       // console.log(document.getElementById(notes.dateTime),"index: ", index)
-        var div = document.getElementById(notes.dateTime).children
-        div[0].style.filter = "blur(5px)";
-        div[1].style.filter = "blur(5px)";
-        div[2].style.filter = "blur(5px)";
-      }
-    })
+    return(
+      <div>
+      {Array.isArray(notesArray)?
+        notesArray.map((notes,index) => {
+          if((localStorage.getItem(notes.dateTime) == '1')){
+           // console.log(document.getElementById(notes.dateTime),"index: ", index)
+            var div = document.getElementById(notes.dateTime).children
+            div[0].style.filter = "blur(5px)";
+            div[1].style.filter = "blur(5px)";
+            div[2].style.filter = "blur(5px)";
+          }
+        }) : null }
+        </div>
+    ); 
 }
 
 
@@ -126,11 +131,11 @@ useLayoutEffect(()=>{
                   Show All Notes
                 </button>
 
-                {/* <button onClick={hideAllNotes} 
+                <button onClick={hideAllNotes} 
                  id="hideAll-note-btn" className="btn" type = "button"   >
                   <span><i className="fas fa-plus"></i></span>
                   Hide All Notes
-                </button> */}
+                </button>
 
                 
               </div>
