@@ -15,6 +15,8 @@ function Journal() {
   const [dateTime, setDate] = useState("");
   const [notesArray, setNotesArray] = useState([]);
   const [show, setShow] = useState(false);
+  const [noteIndex, setNoteIndex] = useState("");
+
   var hideShowBtn = show ? "Show" : "Hide";
 
   const toggleShow = () => {
@@ -26,7 +28,8 @@ function Journal() {
     setModalIsOpen(false);
   };
 
-  const openModal = () => {
+  const openModal = (i) => {
+    setNoteIndex(i);
     setModalIsOpen(true);
   };
 
@@ -173,7 +176,7 @@ function reload(deletingNoteID){
 
                       <button className="notes_btn_show" onClick={() => {
                         openModal();
-                      }}>Show</button>
+                      }}>Show</button> */}
 
                     </div>
                 )})
