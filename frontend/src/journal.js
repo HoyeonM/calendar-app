@@ -100,10 +100,7 @@ function reload(deletingNoteID){
   div.parentNode.removeChild(div);
 }
 
-// function fun() {  
-//   setHidePasscode(window.prompt ("Enter you password..."))
-//   console.log(hidePasscode);
-//   }  
+
 
 
     return (
@@ -176,7 +173,7 @@ function reload(deletingNoteID){
 
                       <button className="notes_btn_show" onClick={() => {
                         openModal();
-                      }}>Show</button> */}
+                      }}>Show</button> 
 
                     </div>
                 )})
