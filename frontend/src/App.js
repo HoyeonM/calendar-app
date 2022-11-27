@@ -4,7 +4,6 @@ import 'react-calendar/dist/Calendar.css';
 import './App.css';
 import Passcode from './passcode.js';
 import Journal from './journal.js';
-import Tag from './Tag.js';
 import TodoForm from './TodoForm';
 
 
@@ -35,16 +34,6 @@ function App() {
           <div className='passcode'>
             <Passcode /> {/* function above called PasscodeApp is here*/}
           </div>
-<div className='notification'>
-            <Notification />{/* function above called NotificationApp is here*/}
-          </div>
-          <div className='search-bar'>
-            <SearchBar/> {/* function above called SearchBar is here*/}
-          </div>
-          <div className='tag-bar'>
-            <Tag/>
-          </div>
-          
           <SearchBar/> {/* function above called SearchBar is here*/}
         </div>
       </div>
