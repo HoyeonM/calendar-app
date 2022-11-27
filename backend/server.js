@@ -12,7 +12,8 @@ var connection = mysql.createConnection({ //newly added!
     user: "sql9579587", // mysql id
     password: "blq8zUBtEj", // mysql password
     database: "sql9579587", //database name
-});
+    });
+
   
 
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -117,11 +118,40 @@ app.post("/insertTodo", (req, res) => {
   })
 
 app.put("/update/:id", (req, res) => {
+    //connection.release();
+
+});
+
+app.post("/tag", (req, res) => {
+  const json = req.body.inText;
+  const obj = JSON.parse(json);
+  const tag = obj.tag;
+  console.log(tag);
+
+  connection.connect(function(err) {
+    if (err) throw err;
+    console.log("Connected!");
+  });
+  connection.query("INSERT INTO Tags (value) values(?)", [tag]);
+  connection.query("SELECT value FROM Tags", function(err, result, fields){
+    if (err) throw err;
+
+    Object.keys(result).forEach(function(key){
+      var row = result[key];
+      console.log(row.value)
+    });
+  });
+
+  const sendText = {
+    text: "New tag created: " + tag
+  };
+  res.send(sendText);
 
   const id = req.params.id;
   const title = req.body.title;
   const note = req.body.note;
   const dateTime = req.body.dateTime;;
+
 
   connection.query(
       "UPDATE JournalEntries SET title = ?, body = ?, dateTime = ? WHERE id = ?",
