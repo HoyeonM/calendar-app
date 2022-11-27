@@ -4,7 +4,7 @@ import 'react-calendar/dist/Calendar.css';
 import './App.css';
 import Passcode from './passcode.js';
 import Journal from './journal.js';
-import TodoForm from './TodoForm';
+import TodoForm from './todoForm';
 
 
 function SearchBar() { 
