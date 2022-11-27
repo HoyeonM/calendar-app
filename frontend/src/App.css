@@ -209,7 +209,7 @@ abbr[title] {
 //////////////////////////////////////////////////////////////////////////////////////////
 */
 .todo-input {
-  display: flex;
+  display: inline-block;
   margin: auto;
   align-self: center;
   padding: 10px;
@@ -217,7 +217,8 @@ abbr[title] {
   border: 2px solid rgba(0, 0, 0, 0.2);
   font-size: 1.05rem;
   padding: 0.55rem;
-  margin-left: 7rem;
+  margin-top: 1%;
+  margin-left: 3rem;
   margin-bottom: 0.8rem;
   border-radius: 2rem;
 }
@@ -237,6 +238,7 @@ abbr[title] {
     padding: 2rem;
     border-radius: 5px;
 }
+
 .todo {
   display: flex;
   background: rgb(255, 255, 255);
@@ -246,8 +248,33 @@ abbr[title] {
   box-shadow: 0 0 7px 0 rgb(0 0 0 / 30%);
 }
 
-.checkbox {
+.todoDueDate-input {
+  display: inline-block;
+  margin: auto;
+  align-self: center;
+  padding: 10px;
+  width: 15%;
+  border: 2px solid rgba(0, 0, 0, 0.2);
+  font-size: 1.05rem;
+  padding: 0.55rem;
+  margin-left: 2rem;
+  margin-bottom: 0.8rem;
+  border-radius: 2rem;
+}
+
+.todoDueDate {
   display: flex;
+  margin: auto;
+  align-self: center;
+  padding: 10px;
+  width: 100%;
+  border: 2px solid rgba(0, 0, 0, 0.2);
+  font-size: 1.05rem;
+  padding: 0.55rem;
+  border-radius: 2rem;
+}
+
+.checkbox {
   width: 24px;
   height: 24px;
   border-radius: 50%;
@@ -269,6 +296,7 @@ abbr[title] {
 .delete {
   margin-left: auto; 
   margin-right: 0;
+  cursor: pointer
 }
 
 .delete:hover {
