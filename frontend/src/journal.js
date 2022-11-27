@@ -52,6 +52,7 @@ function Journal() {
     })
     getNotes();
     console.log(notesArray);
+    window.location.reload();
  }
 
   function resetinput (){
