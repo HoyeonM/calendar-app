@@ -1,86 +1,119 @@
-import Calendar from 'react-calendar';
-import 'react-calendar/dist/Calendar.css';
-import { useState } from 'react';
-import { Editor } from "react-draft-wysiwyg";
-import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
-
-import './App.js';
+import React, { useState,useEffect } from "react";
+import Axios from 'axios';
 import './App.css';
+import { v4 } from 'uuid'
+
+
 
 function TodoForm() {
-    const [date, setDate] = useState(new Date());
-    const [todo, setTodo] = useState("");
-    const [dueDate, setDueDate] = useState("");
-    //const [todoInput, setTodoInput] = useState("");
-    //const todos = [];
+    const [currentTodo, setCurrentTodo] = useState("");
+    const [todos, setTodos] = useState([]);
+    const [dateTime, setDate] = useState("");
 
-    document.addEventListener("DOMContentLoaded", () => {
-        const SAVING_MESSAGE = "Saving...";
-        const SAVED_MESSAGE = "All changes saved.";
-      
-        document
-          .querySelectorAll(".autosave-message")
-          .forEach((el) => (el.textContent = SAVED_MESSAGE));
-      
-        document.querySelectorAll("[data-autosave-value]").forEach((inputField) => {
-          inputField.addEventListener("change", async () => {
-            const name = inputField.getAttribute("name");
-            const value = inputField.value;
-            const autosaveMessageEl = inputField
-              .closest(".container")
-              .querySelector(".autosave-message");
-            const formData = new FormData();
-      
-            formData.append(name, value);
-            autosaveMessageEl.classList.add("autosave-message--saving");
-            autosaveMessageEl.textContent = SAVING_MESSAGE;
-      
-            const response = await fetch(value, {
-              method: "POST",
-              body: formData
-            });
-      
-            autosaveMessageEl.classList.remove("autosave-message--saving");
-            autosaveMessageEl.textContent = SAVED_MESSAGE;
-          });
-        });
-      }); 
+    useEffect ( () => {
+      getTodos();
+}, []);
 
-    const submitTodo = (event) => {
-        event.preventDefault();
+    const getTodos = ()=>{
+      console.log("trying to get todos")
+      Axios.get("http://localhost:3307/getTodos").then((res) => {
+        console.log(res.data)
+        setTodos(res.data);
+      })
     }
-    return (
-        <div>
-            <main>
-                <form onSubmit = {submitTodo}>
-                    <label for = "todo">Checklist Title:</label>
-                    <input
-                    id= "todo" 
-                    type = "text"
-                    name = "text"
-                    onChange = {event => setTodo(event.target.value)}
-                    />
-                    <input type = "submit" value = "submit" />
-                </form>
-            </main>
-            <span classname = 'bold'>Checklist Entry:</span>
-            <Editor
-                //editorState = {editorState}
-                toolbarClassName="toolbarClassName"
-                wrapperClassName="wrapperClassName"
-                editorClassName="editorClassName"
-                wrapperStyle={{ width: 500, height: 300, border: "1px solid black" }}
-                //onEditorStateChange = {this.onEditorStateChange}      
-            />
-            <span classname = 'bold'>Checklist Due Date:</span>
-            <input 
-            type = "text"
-            placeholder={date.toDateString()}
-            onChange={event => setDueDate(event.target.value)}
-            />
-        <button>submit</button>
-        </div> 
-    )  
- } 
+  
+    const addTodo = () => {
+      Axios.post("http://localhost:3307/insertTodo", {
+        todo: currentTodo, 
+        isCompleted: false, 
+      })
+     .then(res => {
+        console.log("Successful todo add!");
+        getTodos();
+      })
+   }
 
-export default TodoForm;
+   const deleteTodoDB = (id) => {
+  
+      Axios.delete(`http://localhost:3307/deleteTodo/${id}`).
+      then((res)=>{
+        console.log(res.data);
+        console.log("todo deleted!");
+      })
+    
+  }
+
+  const completeTodoDB = (id,status)=>{
+    console.log("trying to update todos")
+    //console.log(status)
+    Axios.put(`http://localhost:3307/updateTodo`, {
+      id: id,
+      status: status
+    })
+    .then((res) => {
+      console.log("updated todo")
+    })
+   // getTodos();
+  }
+
+    function createNewTodo(currentTodo) {
+      let todosArray = [...todos];
+      todosArray.push({
+        todo: currentTodo,
+        isCompleted: false
+      });
+      setTodos(todosArray);
+      getTodos();
+      addTodo();
+    }
+  
+    function completeTodo(index) {
+      let todosArray = [...todos];
+      todosArray[index].isCompleted = !todosArray[index].isCompleted;
+      setTodos(todosArray);
+      let stat = todos[index].isCompleted;
+      completeTodoDB(todos[index].id,stat)
+    }
+  
+    function deleteTodo(index) {
+      let todosArray = [...todos];
+      todosArray.splice(index, 1);
+      setTodos(todosArray);
+      deleteTodoDB(todos[index].id)
+    }
+  
+    return (
+      <div >
+        <input
+          className="todo-input"
+          value={currentTodo}
+          onChange={e => {
+            setCurrentTodo(e.target.value);
+          }}
+          onKeyPress={e => {
+            if (e.key === "Enter") {
+              createNewTodo(currentTodo);
+              setCurrentTodo("");
+            }
+          }}
+          placeholder="What needs to get done?  Press Enter to submit..."
+        />
+        <div className="alltodos">
+        {todos.map((todo, index) => (
+                <div key={v4()} className="todo" id = {todo.dateTime}>
+                    <div key={v4()} className="checkbox" onClick={() => completeTodo(index)}>
+                    {todo.isCompleted && <span>&#x2714;</span>}
+                    </div>
+                    <div key={v4()}   className={todo.isCompleted ? "done" : ""}>{todo.todo}</div>
+                    <div key={v4()}  className="delete" onClick={() => deleteTodo(index)} >
+                    &#128465;
+                    </div>
+                </div>
+        
+        ))}
+          </div>
+        {todos.length > 0 && `${todos.length} items`}
+      </div>
+    );
+  }
+ export default TodoForm;
