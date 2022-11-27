@@ -3,19 +3,15 @@ import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import Axios from 'axios';
 import './App.css';
 import React, {useEffect} from 'react'
-import Modal from 'react-modal'; //this is for popup
 
 function Journal() {
-  const [modalIsOpen, setModalIsOpen] = useState(false);
+
   const [passcode, setPasscode] = useState([]);
- // const [hidePasscode, setHidePasscode] = useState("");
   var toHidePassword = 0;
   const [note, setNote] = useState("");
   const [title, setTitle] = useState("");
   const [dateTime, setDate] = useState("");
   const [notesArray, setNotesArray] = useState([]);
-  const [show, setShow] = useState(false);
-  const [noteIndex, setNoteIndex] = useState("");
 
 
   useEffect ( () => {
@@ -78,16 +74,13 @@ function reload(deletingNoteID){
   div.parentNode.removeChild(div);
 }
 
-//getNotes();
 
 function blurExisting(){
-    //getNotes();
     return(
       <div>
       {Array.isArray(notesArray)?
         notesArray.map((notes,index) => {
           if((localStorage.getItem(notes.dateTime) == '1')){
-           // console.log(document.getElementById(notes.dateTime),"index: ", index)
             var div = document.getElementById(notes.dateTime).children
             div[0].style.filter = "blur(5px)";
             div[1].style.filter = "blur(5px)";
