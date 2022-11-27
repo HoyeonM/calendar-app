@@ -21,6 +21,11 @@ function Journal() {
   },[]);
 
 
+
+  function refreshPage() {
+    window.location.reload(false);
+  }
+
   const getNotes = ()=>{
     Axios.get("http://localhost:3307/getNotes").then((res) => {
       setNotesArray(res.data);
@@ -149,6 +154,8 @@ useLayoutEffect(()=>{
                         deleteNote(notes.id);
                         // reload(notes.dateTime);
                         getNotes();
+                        refreshPage();
+
                       }}>Delete</button>
       
                       <button className="notes_btn_hide" onClick={() => {
