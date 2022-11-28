@@ -95,15 +95,21 @@ app.get("/getTodos", (req, res) => {
 });
 
 app.post("/insertTodo", (req, res) => {
+    var today = new Date();
+    var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+    var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+    var dateTimeNow = date+' '+time;
+  
+    const dateTime = dateTimeNow;
+
     connection.query (
-        "INSERT INTO todoList (todo, isCompleted, datetime) VALUES (?, ?, ?)", [req.body.todo, req.body.isCompleted, req.body.dateTime], 
+        "INSERT INTO todoList (todo, isCompleted, datetime) VALUES (?, ?, ?)", [req.body.todo, req.body.isCompleted, dateTime], 
         (err, result) => {
             if (err) {
                 console.log(err);
             }
             else {
                 res.send(result);
-                window.alert("Checklist Successfully Saved!");
             }
         }
     );
@@ -149,38 +155,58 @@ app.delete("/deleteTodo/:id", (req, res) => {
         connection.query("DELETE FROM todoList WHERE id= ?", id, (err,result)=>{
           if(err) {
           console.log(err)
-        } else {
-          console.log(result);
-          window.alert("Checklist Deleted!");
-        }
+        } 
     })
     })
 
     app.put("/updateTodo", (req, res) => {
         console.log(req.body.id)
         console.log(req.body.status)
-        console.log(req.body.todo)
-        console.log(reg.body.dateTime)
-
         const id = req.body.id;
         const status = req.body.status;
-        const todo = req.body.todo;
-        const dateTime = req.body.dateTime;
-
         connection.query(
-            "UPDATE todoList SET isCompleted = ?, dateTime = ?, todo = ? WHERE id = ?",[status, dateTime, todo, id],
+            "UPDATE todoList SET isCompleted = ? WHERE id = ?",[status,id],
             (err, result) => {
                 if (err) {
-                  console.log(err);
+                    console.log(err);
                 }
                 else {
-                  res.send(result);
-                  window.alert("Checklist Updated Successfully!");
+                    res.send(result);
                 }
             }
         );
       });
 
+
+app.post("/insertChecklist", (req, res) => {
+  var today = new Date();
+  var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+  var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+  var dateTimeNow = date+' '+time;
+
+  const title = req.body.title;
+  const entry = req.body.entry;
+  const dueDate = dateTimeNow;
+
+  connection.connect(function(err) {
+    if (err) throw err;
+    console.log("Connected!");
+  });
+  
+  connection.query (
+      "INSERT INTO checklist (title, entry, dueDate) VALUES (?, ?, ?)", [title, entry, dueDate], 
+      (err, result) => {
+          if (err) {
+              console.log(err);
+          }
+          else {
+              res.send("Checklist values inserted");
+          }
+      }
+  );
+
+})
+
 app.listen(port, () => {
-  console.log(`App listening at http://localhost:${port}`)
+  console.log(`Example app listening at http://localhost:${port}`)
 });
