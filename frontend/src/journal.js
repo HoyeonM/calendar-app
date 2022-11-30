@@ -74,12 +74,6 @@ const hideAllNotes = () => {
   setNotesArray(null);
 }
 
-// function reload(deletingNoteID){
-//     var div = document.getElementById(deletingNoteID);
-//     div.parentNode.removeChild(div);
-// }
-
-
 function blurExisting(){
     return(
       <div>
@@ -95,8 +89,6 @@ function blurExisting(){
         </div>
     ); 
 }
-
-
 useLayoutEffect(()=>{
   blurExisting();
 })
@@ -152,7 +144,6 @@ useLayoutEffect(()=>{
                       <p className='notes_content'> {notes.dateTime}</p>
                       <button className="notes_btn" onClick={()=> {
                         deleteNote(notes.id);
-                        // reload(notes.dateTime);
                         getNotes();
                         refreshPage();
 

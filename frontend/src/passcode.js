@@ -38,6 +38,8 @@ function Passcode(){
           console.log(json);
           setAlertText(json.text);
         });
+        window.location.reload();
+
     };
 
     return (

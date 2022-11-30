@@ -7,6 +7,7 @@
   margin-left: 5%;
 }
 
+
 .react-calendar__navigation button {
   font-size: 20px;
   font-weight: bold;
@@ -244,6 +245,10 @@ abbr[title] {
   padding: 1.5rem;
   border-radius: 10px;
   box-shadow: 0 0 7px 0 rgb(0 0 0 / 30%);
+}
+.checklist_date_heading{
+  display: flex;
+  margin-left: 3rem;
 }
 
 .checkbox {

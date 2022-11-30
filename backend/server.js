@@ -24,10 +24,6 @@ app.post("/passcode", (req, res) => {
     const obj = JSON.parse(json);
     const passcode = obj.passcode;
     console.log(passcode);
-    connection.connect(function(err) {
-      if (err) throw err;
-      console.log("Connected!");
-    });
     connection.query("INSERT INTO userPassword (password) values(?)", [passcode]);
 
     const sendText = {
@@ -83,27 +79,23 @@ app.get("/getPassword", (req, res) => {
   })
 })
 
-app.get("/getTodos", (req, res) => {
-  connection.query("SELECT * FROM todoList  ", (err, result) => {
+app.get("/getTodos/:dateTime", (req, res) => {
+  const dateTime = new Date(req.params.dateTime);
+  //console.log(dateTime,":Trying to find checklist with date")
+  connection.query("SELECT * FROM `todoList` WHERE `dateTime` = ? ORDER BY `dateTime` DESC",dateTime, (err, result) => {
       if (err) {
           console.log(err);
       }
       else {
+    
           res.send(result)
       }
   });
 });
 
 app.post("/insertTodo", (req, res) => {
-    var today = new Date();
-    var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
-    var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
-    var dateTimeNow = date+' '+time;
-  
-    const dateTime = dateTimeNow;
-
     connection.query (
-        "INSERT INTO todoList (todo, isCompleted, datetime) VALUES (?, ?, ?)", [req.body.todo, req.body.isCompleted, dateTime], 
+        "INSERT INTO todoList (todo, isCompleted, datetime) VALUES (?, ?, ?)", [req.body.todo, req.body.isCompleted, req.body.dateTime], 
         (err, result) => {
             if (err) {
                 console.log(err);

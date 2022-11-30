@@ -1,37 +1,44 @@
-import React, { useState,useEffect } from "react";
+import React, { useState,useEffect, useLayoutEffect } from "react";
 import Axios from 'axios';
 import './App.css';
 import { v4 } from 'uuid'
+import Calendar from 'react-calendar';
+import 'react-calendar/dist/Calendar.css';
 
 
 
 function TodoForm() {
     const [currentTodo, setCurrentTodo] = useState("");
     const [todos, setTodos] = useState([]);
-    const [dateTime, setDate] = useState("");
+    const [dateTime, setDateTime] = useState(new Date());
+    
 
-    useEffect ( () => {
-      getTodos();
-}, []);
+    useEffect (() => {
+    getTodos(dateTime);
+    }, [dateTime]);
 
-    const getTodos = ()=>{
-      console.log("trying to get todos")
-      Axios.get("http://localhost:3307/getTodos").then((res) => {
-        console.log(res.data)
+    const getTodos = (dateTime) =>{
+     // console.log("trying to get todos with date:", dateTime)
+      Axios.get(`http://localhost:3307/getTodos/${dateTime}`).then((res) => {
+       // console.log(res.data)
         setTodos(res.data);
       })
     }
+
   
     const addTodo = () => {
       Axios.post("http://localhost:3307/insertTodo", {
         todo: currentTodo, 
+        dateTime: dateTime,
         isCompleted: false, 
       })
      .then(res => {
         console.log("Successful todo add!");
-        getTodos();
+        //console.log(dateTime,"date of todo")
+        getTodos(dateTime);
       })
    }
+
 
    const deleteTodoDB = (id) => {
   
@@ -45,7 +52,6 @@ function TodoForm() {
 
   const completeTodoDB = (id,status)=>{
     console.log("trying to update todos")
-    //console.log(status)
     Axios.put(`http://localhost:3307/updateTodo`, {
       id: id,
       status: status
@@ -53,7 +59,6 @@ function TodoForm() {
     .then((res) => {
       console.log("updated todo")
     })
-   // getTodos();
   }
 
     function createNewTodo(currentTodo) {
@@ -63,7 +68,7 @@ function TodoForm() {
         isCompleted: false
       });
       setTodos(todosArray);
-      getTodos();
+      getTodos(dateTime);
       addTodo();
     }
   
@@ -81,8 +86,12 @@ function TodoForm() {
       setTodos(todosArray);
       deleteTodoDB(todos[index].id)
     }
-  
+
     return (
+      <div className="calendar_todo" > 
+      <Calendar onChange={setDateTime} value={dateTime}> </Calendar>
+      <h1  className="bold"> Checklist:</h1>
+      <h2 className="checklist_date_heading" >For the day of : {dateTime.toDateString()}</h2>
       <div >
         <input
           className="todo-input"
@@ -113,6 +122,7 @@ function TodoForm() {
         ))}
           </div>
         {todos.length > 0 && `${todos.length} items`}
+      </div>
       </div>
     );
   }
