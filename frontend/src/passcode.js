@@ -36,7 +36,7 @@ function Passcode(){
         .then((res) => res.json())
         .then((json) => {
           console.log(json);
-          setAlertText(json.text);
+          window.alert("you just set your password");
         });
         window.location.reload();
 
@@ -49,7 +49,7 @@ function Passcode(){
             </button>
             <Modal className='Modal' isOpen={modalIsOpen} onRequestClose={closeModal}>
       	        <h3>Your new Passcode</h3>
-                <input
+                <input type="password"
                     onChange={handlChange}
                 />
                 <button onClick={onClickSubmit}>Submit</button>

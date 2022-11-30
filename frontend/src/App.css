@@ -279,3 +279,11 @@ abbr[title] {
 .delete:hover {
   opacity: 0.8;
 }
+
+.delete {
+  cursor: pointer;
+}
+
+form.show-passwords input[type="password"] {
+  input-security: none;
+}
