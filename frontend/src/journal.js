@@ -16,7 +16,7 @@ function Journal() {
 
   useEffect ( () => {
     getPassword();
-        Axios.get("http://localhost:3307/getNotes")
+        Axios.get("http://localhost:3306/getNotes")
         .then(res=>setNotesArray(res.data))
   },[]);
 
@@ -27,13 +27,13 @@ function Journal() {
   }
 
   const getNotes = ()=>{
-    Axios.get("http://localhost:3307/getNotes").then((res) => {
+    Axios.get("http://localhost:3306/getNotes").then((res) => {
       setNotesArray(res.data);
     })
   }
 
   const getPassword = () => {
-    Axios.get("http://localhost:3307/getPassword").then((res) => {
+    Axios.get("http://localhost:3306/getPassword").then((res) => {
       setPasscode(res.data);
       console.log(res.data);
     })
@@ -42,7 +42,7 @@ function Journal() {
 
 
  const addNote = () => {
-    Axios.post("http://localhost:3307/insert", {
+    Axios.post("http://localhost:3306/insert", {
       title: title, 
       note: note, 
       dateTime: dateTime,
@@ -64,7 +64,7 @@ function Journal() {
 
  const deleteNote = (id) => {
   if(window.confirm("You really want to delete this note?")){
-    Axios.delete(`http://localhost:3307/delete/${id}`).then((res)=>{
+    Axios.delete(`http://localhost:3306/delete/${id}`).then((res)=>{
       console.log(res.data);
     })
   }

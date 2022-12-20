@@ -19,7 +19,7 @@ function TodoForm() {
 
     const getTodos = (dateTime) =>{
      // console.log("trying to get todos with date:", dateTime)
-      Axios.get(`http://localhost:3307/getTodos/${dateTime}`).then((res) => {
+      Axios.get(`http://localhost:3306/getTodos/${dateTime}`).then((res) => {
        // console.log(res.data)
         setTodos(res.data);
       })
@@ -27,7 +27,7 @@ function TodoForm() {
 
   
     const addTodo = () => {
-      Axios.post("http://localhost:3307/insertTodo", {
+      Axios.post("http://localhost:3306/insertTodo", {
         todo: currentTodo, 
         dateTime: dateTime,
         isCompleted: false, 
@@ -42,7 +42,7 @@ function TodoForm() {
 
    const deleteTodoDB = (id) => {
   
-      Axios.delete(`http://localhost:3307/deleteTodo/${id}`).
+      Axios.delete(`http://localhost:3306/deleteTodo/${id}`).
       then((res)=>{
         console.log(res.data);
         console.log("todo deleted!");
@@ -52,7 +52,7 @@ function TodoForm() {
 
   const completeTodoDB = (id,status)=>{
     console.log("trying to update todos")
-    Axios.put(`http://localhost:3307/updateTodo`, {
+    Axios.put(`http://localhost:3306/updateTodo`, {
       id: id,
       status: status
     })
