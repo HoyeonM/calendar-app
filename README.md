@@ -1,8 +1,8 @@
 # Dailylife Todo - Web Application
 
-### :fire:Skill: React.js, node.js, MYSQL
+### :fire: skill: React.js, node.js, MYSQL
 
-Functionalities
+<Functionalities>
 
 1. Calendar
 2. Pin
