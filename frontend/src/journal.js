@@ -12,37 +12,39 @@ function Journal() {
   const [title, setTitle] = useState("");
   const [dateTime, setDate] = useState("");
   const [notesArray, setNotesArray] = useState([]);
+  const [new_dateTime, setNewDate] = useState("");
 
+  const dateTimeFormat = (notes_dateTime) => {
+    let new_dateTime = new Date(notes_dateTime).toUTCString();
+    setNewDate(new_dateTime);
+  }
 
   useEffect ( () => {
     getPassword();
-        Axios.get("http://localhost:3306/getNotes")
+        Axios.get("http://localhost:3307/getNotes")
         .then(res=>setNotesArray(res.data))
   },[]);
 
 
-
-  function refreshPage() {
+  const refreshPage = () => {
     window.location.reload(false);
   }
 
   const getNotes = ()=>{
-    Axios.get("http://localhost:3306/getNotes").then((res) => {
+    Axios.get("http://localhost:3307/getNotes").then((res) => {
       setNotesArray(res.data);
     })
   }
 
   const getPassword = () => {
-    Axios.get("http://localhost:3306/getPassword").then((res) => {
+    Axios.get("http://localhost:3307/getPassword").then((res) => {
       setPasscode(res.data);
       console.log(res.data);
     })
-
   }
 
-
  const addNote = () => {
-    Axios.post("http://localhost:3306/insert", {
+    Axios.post("http://localhost:3307/insert", {
       title: title, 
       note: note, 
       dateTime: dateTime,
@@ -64,7 +66,7 @@ function Journal() {
 
  const deleteNote = (id) => {
   if(window.confirm("You really want to delete this note?")){
-    Axios.delete(`http://localhost:3306/delete/${id}`).then((res)=>{
+    Axios.delete(`http://localhost:3307/delete/${id}`).then((res)=>{
       console.log(res.data);
     })
   }
@@ -126,9 +128,7 @@ useLayoutEffect(()=>{
                  id="hideAll-note-btn" className="btn" type = "button"   >
                   <span><i className="fas fa-plus"></i></span>
                   Hide All Notes
-                </button>
-
-                
+                </button> 
               </div>
             </div>
             
@@ -137,11 +137,10 @@ useLayoutEffect(()=>{
             {Array.isArray(notesArray) ?
                 notesArray.map((notes,index) => {
                     return(
-                     
                       <div id = {notes.dateTime} className='note-item' key={index} >
                       <h1 className='notes_content'> {notes.title}</h1>
                       <p className='notes_content'> {notes.body}</p>
-                      <p className='notes_content'> {notes.dateTime}</p>
+                      <p className='notes_content' > {new Date(notes.dateTime).toUTCString()}</p>
                       <button className="notes_btn" onClick={()=> {
                         deleteNote(notes.id);
                         getNotes();
@@ -178,12 +177,9 @@ useLayoutEffect(()=>{
                            window.alert("retry");
                          }
                       }}>Show</button> 
-
                     </div>
                 )})
-                
-              : null}
-              
+              : null}           
             </div>
           </div>
       </div>  

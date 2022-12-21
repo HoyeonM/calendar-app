@@ -1,6 +1,6 @@
 const express = require("express");
 const app = express();
-const port = 3306; 
+const port = 3307; 
 const cors = require("cors");
 const bodyParser = require("body-parser");
 const mysql = require("mysql");
@@ -42,6 +42,7 @@ app.post("/insert", (req, res) => {
   const title = req.body.title;
   const note = req.body.note;
   const dateTime = dateTimeNow;
+  const new_dateTime = date
 
   connection.query (
       "INSERT INTO JournalEntries (title, body, datetime) VALUES (?, ?, ?)", [title, note, dateTime], 
@@ -81,14 +82,12 @@ app.get("/getPassword", (req, res) => {
 
 app.get("/getTodos/:dateTime", (req, res) => {
   const dateTime = new Date(req.params.dateTime);
-  //console.log(dateTime,":Trying to find checklist with date")
   connection.query("SELECT * FROM `todoList` WHERE `dateTime` = ? ORDER BY `dateTime` DESC",dateTime, (err, result) => {
       if (err) {
           console.log(err);
       }
       else {
-    
-          res.send(result)
+          res.send(result);
       }
   });
 });

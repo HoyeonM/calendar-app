@@ -1,3 +1,6 @@
+.app {
+  background-color: white;
+}
 .text-center{
   margin-left: 60px;
   font-family: 'Londrina Solid';
@@ -43,8 +46,6 @@ abbr[title] {
 .material-symbols-outlined {
   padding-right: 15px;
 }
-
-
 
 
 .note {
@@ -102,6 +103,7 @@ abbr[title] {
   cursor: pointer;
   transition: all 0.5s ease-in-out;
   margin-right: 10px;
+  
 }
 
 .btn:focus {
@@ -249,6 +251,8 @@ abbr[title] {
 .checklist_date_heading{
   display: flex;
   margin-left: 3rem;
+  font-family: 'Nunito Sans', sans-serif;
+  font-weight: bold;
 }
 
 .checkbox {
@@ -286,4 +290,12 @@ abbr[title] {
 
 form.show-passwords input[type="password"] {
   input-security: none;
+}
+
+.todo_length {
+  font-family: 'Nunito Sans', sans-serif;
+  font-weight: bolder;
+  font-size: larger;
+  color: white;
+  margin-left: 20px;
 }
