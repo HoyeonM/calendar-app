@@ -21,7 +21,7 @@ User can create password and this can be used to hide/show notes. User can chang
    
 
 **2. Pin**<br/>
-  Used [Modal API](https://www.npmjs.com/package/react-modal)
+  Used [Modal API](https://www.npmjs.com/package/react-modal) <br/>
   ```javascript
   const onClickSubmit = () => {
         const textbox = {
@@ -42,7 +42,7 @@ User can create password and this can be used to hide/show notes. User can chang
    <img width="600" alt="Screen Shot 2022-12-22 at 4 56 06 AM" src="https://user-images.githubusercontent.com/99692392/209138996-804544d0-63cd-45b8-be3a-04efe05a2523.png"> <br/>
    
 
-**3. Search**<br/>
+**3. Search** <br/>
    ```javascript
    function clickedSubmit(){
       let input = document.getElementById('myInput').value
@@ -53,18 +53,18 @@ User can create password and this can be used to hide/show notes. User can chang
 <img width="300" alt="Screen Shot 2022-12-22 at 5 10 55 AM" src="https://user-images.githubusercontent.com/99692392/209141539-a1b7966e-effc-4488-a5f2-c46a10d0f618.png"> <br/>
 
 
-**4. Checklist**<br/>
-   Used map , pass index to functions
-   add Todo : post
-   delete Todo : delete
-   complete Todo : put -> update status
+**4. Checklist** <br/>
+   Used map , pass index to functions <br/>
+   add Todo : post <br/>
+   delete Todo : delete <br/>
+   complete Todo : put -> update status <br/>
 <img width="600" alt="Screen Shot 2022-12-22 at 5 17 02 AM" src="https://user-images.githubusercontent.com/99692392/209142511-d9b2f232-c290-4afb-8be6-f2a66cfa7556.png"> <br/>
 
 
 **5. Journal**<br/>
-   Used map ,  pass index to functions
-   Show All Notes: get all notes by Axios.get() then setNotesArray(res.data) / Hide All Notes: setNotesArray(null);
-   Add Note: post / reload window to show all notes..
+   Used map ,  pass index to functions <br/>
+   Show All Notes: get all notes by Axios.get() then setNotesArray(res.data) / Hide All Notes: setNotesArray(null); <br/>
+   Add Note: post / reload window to show all notes.. <br/>
    <img width="600" alt="Screen Shot 2022-12-22 at 5 40 46 AM" src="https://user-images.githubusercontent.com/99692392/209147094-f5826331-ed4e-4467-8216-854eec2563aa.png"> <br/>
    
    - Delete <br/>
