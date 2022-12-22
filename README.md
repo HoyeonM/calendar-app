@@ -14,12 +14,13 @@ User can create password and this can be used to hide/show notes. User can chang
 
 #### Functionalities
 
-1. Calendar
+**1. Calendar**<br/>
    Used [Calendar API](https://www.npmjs.com/package/react-calendar)
    Selected date is marked as blue, Current date is yellow.
-   <img width="600" alt="Screen Shot 2022-12-22 at 4 43 48 AM" src="https://user-images.githubusercontent.com/99692392/209137189-c017381d-f54e-4ef8-81b0-6f17605f8f37.png">
+   <img width="600" alt="Screen Shot 2022-12-22 at 4 43 48 AM" src="https://user-images.githubusercontent.com/99692392/209137189-c017381d-f54e-4ef8-81b0-6f17605f8f37.png"> <br/>
+   
 
-2. Pin 
+**2. Pin**<br/>
   Used [Modal API](https://www.npmjs.com/package/react-modal)
   ```javascript
   const onClickSubmit = () => {
@@ -38,9 +39,10 @@ User can create password and this can be used to hide/show notes. User can chang
           closeModal();
         });
    ```
-   <img width="600" alt="Screen Shot 2022-12-22 at 4 56 06 AM" src="https://user-images.githubusercontent.com/99692392/209138996-804544d0-63cd-45b8-be3a-04efe05a2523.png">
+   <img width="600" alt="Screen Shot 2022-12-22 at 4 56 06 AM" src="https://user-images.githubusercontent.com/99692392/209138996-804544d0-63cd-45b8-be3a-04efe05a2523.png"> <br/>
+   
 
-3. Search
+**3. Search**<br/>
    ```javascript
    function clickedSubmit(){
       let input = document.getElementById('myInput').value
@@ -48,28 +50,30 @@ User can create password and this can be used to hide/show notes. User can chang
    }
    ```
    <img width="200" alt="Screen Shot 2022-12-22 at 5 10 59 AM" src="https://user-images.githubusercontent.com/99692392/209141527-68cc6a41-140c-468c-9bd3-26c3f5b45386.png">
-<img width="300" alt="Screen Shot 2022-12-22 at 5 10 55 AM" src="https://user-images.githubusercontent.com/99692392/209141539-a1b7966e-effc-4488-a5f2-c46a10d0f618.png">
+<img width="300" alt="Screen Shot 2022-12-22 at 5 10 55 AM" src="https://user-images.githubusercontent.com/99692392/209141539-a1b7966e-effc-4488-a5f2-c46a10d0f618.png"> <br/>
 
-4. Checklist
+
+**4. Checklist**<br/>
    Used map , pass index to functions
    add Todo : post
    delete Todo : delete
    complete Todo : put -> update status
-<img width="600" alt="Screen Shot 2022-12-22 at 5 17 02 AM" src="https://user-images.githubusercontent.com/99692392/209142511-d9b2f232-c290-4afb-8be6-f2a66cfa7556.png">
+<img width="600" alt="Screen Shot 2022-12-22 at 5 17 02 AM" src="https://user-images.githubusercontent.com/99692392/209142511-d9b2f232-c290-4afb-8be6-f2a66cfa7556.png"> <br/>
 
-5. Journal
+
+**5. Journal**<br/>
    Used map ,  pass index to functions
    Show All Notes: get all notes by Axios.get() then setNotesArray(res.data) / Hide All Notes: setNotesArray(null);
    Add Note: post / reload window to show all notes..
-   <img width="600" alt="Screen Shot 2022-12-22 at 5 40 46 AM" src="https://user-images.githubusercontent.com/99692392/209147094-f5826331-ed4e-4467-8216-854eec2563aa.png">
+   <img width="600" alt="Screen Shot 2022-12-22 at 5 40 46 AM" src="https://user-images.githubusercontent.com/99692392/209147094-f5826331-ed4e-4467-8216-854eec2563aa.png"> <br/>
    
-   Delete
-   show confirm window(window.confirm)
-   <img width="200" alt="Screen Shot 2022-12-22 at 5 41 40 AM" src="https://user-images.githubusercontent.com/99692392/209147620-e0a51c5d-cb19-458d-9e85-a10509029d09.png">
+   - Delete <br/>
+   show confirm window(window.confirm) <br/>
+   <img width="200" alt="Screen Shot 2022-12-22 at 5 41 40 AM" src="https://user-images.githubusercontent.com/99692392/209147620-e0a51c5d-cb19-458d-9e85-a10509029d09.png"> <br/>
    
-   Hide/Show
-   hide function will blur contents(style.filter = "blur(5px)";)
-   get password:get , then compare with entered password. If match, hide/show contents, else, window.alert("retry");
+   - Hide/Show <br/>
+   hide function will blur contents(style.filter = "blur(5px)";) <br/>
+   get password:get , then compare with entered password. If match, hide/show contents, else, window.alert("retry"); <br/>
    <img width="200" alt="Screen Shot 2022-12-22 at 5 41 31 AM" src="https://user-images.githubusercontent.com/99692392/209147694-9bde58d7-1fed-4ef3-a3f9-8bb6d3aadd01.png">
 
 
