@@ -15,12 +15,14 @@ User can create password and this can be used to hide/show notes. User can chang
 #### Functionalities
 
 **1. Calendar**<br/>
+
    Used [Calendar API](https://www.npmjs.com/package/react-calendar)
    Selected date is marked as blue, Current date is yellow.
    <img width="600" alt="Screen Shot 2022-12-22 at 4 43 48 AM" src="https://user-images.githubusercontent.com/99692392/209137189-c017381d-f54e-4ef8-81b0-6f17605f8f37.png"> <br/>
    
 
 **2. Pin**<br/>
+
   Used [Modal API](https://www.npmjs.com/package/react-modal) <br/>
   ```javascript
   const onClickSubmit = () => {
@@ -43,6 +45,7 @@ User can create password and this can be used to hide/show notes. User can chang
    
 
 **3. Search** <br/>
+   
    ```javascript
    function clickedSubmit(){
       let input = document.getElementById('myInput').value
@@ -54,6 +57,7 @@ User can create password and this can be used to hide/show notes. User can chang
 
 
 **4. Checklist** <br/>
+
    Used map , pass index to functions <br/>
    add Todo : post <br/>
    delete Todo : delete <br/>
@@ -62,6 +66,7 @@ User can create password and this can be used to hide/show notes. User can chang
 
 
 **5. Journal**<br/>
+
    Used map ,  pass index to functions <br/>
    Show All Notes: get all notes by Axios.get() then setNotesArray(res.data) / Hide All Notes: setNotesArray(null); <br/>
    Add Note: post / reload window to show all notes.. <br/>
